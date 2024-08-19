@@ -74,27 +74,28 @@ export const projects = [
     id: 1,
     title: "Billing System",
     des: "A modern billing system that simplifies the billing process for businesses.",
-    img: "/billing.svg",
+    img: "/p1.svg",
     iconLists: ["/re.svg", "/tail.svg", "/ts.svg"],
-    link: "https://makebills.netlify.com",
+    link: "https://makebills.netlify.app",
   },
   {
     id: 2,
     title: "Employee Management System",
     des: "An efficient system to manage employees, track performance, and streamline HR processes.",
-    img: "/ems.svg",
+    img: "/p2.svg",
     iconLists: ["/re.svg", "/tail.svg", "/ts.svg"],
-    link: "https://ems.netlify.com",
+    link: "https://ems.netlify.app",
   },
   {
     id: 3,
     title: "Visitor Management System",
     des: "A system to manage and track visitors in your premises, ensuring safety and security.",
-    img: "/visitor.svg",
+    img: "/p3.svg",
     iconLists: ["/re.svg", "/tail.svg", "/ts.svg"],
     link: "/ui.visitor.com",
   },
 ];
+
 
 
 export const testimonials = [
