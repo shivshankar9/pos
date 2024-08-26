@@ -94,7 +94,16 @@ export const projects = [
     iconLists: ["/re.svg", "/tail.svg", "/ts.svg"],
     link: "/ui.visitor.com",
   },
+  {
+    id: 4,
+    title: "Expense Tracker",
+    des: "A tool to track and manage personal and business expenses, providing insights and summaries.",
+    img: "/p4.svg",
+    iconLists: ["/re.svg", "/tail.svg", "/ts.svg"],
+    link: "/expense-tracker.com",
+  },
 ];
+
 
 
 
