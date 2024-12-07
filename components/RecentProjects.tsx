@@ -1,6 +1,12 @@
 "use client";
 
-import { FaLocationArrow } from "react-icons/fa6";
+import Link from "next/link";
+import {
+  FaLocationArrow,
+  FaDesktop,
+  FaGooglePlay,
+  FaGlobe,
+} from "react-icons/fa6";
 
 import { projects } from "@/data";
 import { PinContainer } from "./ui/Pin";
@@ -60,17 +66,62 @@ const RecentProjects = () => {
                         transform: `translateX(-${5 * index + 2}px)`,
                       }}
                     >
-                      <img src={icon} alt="icon5" className="p-2" />
+                      <img src={icon} alt="icon" className="p-2" />
                     </div>
                   ))}
                 </div>
 
                 <div className="flex justify-center items-center">
-                  <p className="flex lg:text-xl md:text-xs text-sm text-purple">
+                  <Link
+                    href={`/projects/${encodeURIComponent(item.title)}`}
+                    className="flex lg:text-xl md:text-xs text-sm text-purple items-center gap-1"
+                  >
                     Check Live Site
-                  </p>
-                  <FaLocationArrow className="ms-3" color="#CBACF9" />
+                    <FaLocationArrow color="#CBACF9" />
+                  </Link>
                 </div>
+              </div>
+
+              <div className="flex items-center justify-around mt-5">
+                {/* Desktop App */}
+                <a
+                  href={item.desktopAppLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 text-gray-400 hover:text-white"
+                >
+                  <FaDesktop className="text-xl" />
+                  <span>Desktop App</span>
+                </a>
+                {/* Play Store */}
+                <a
+                  href={item.playStoreLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 text-gray-400 hover:text-white"
+                >
+                  <FaGooglePlay className="text-xl" />
+                  <span>Play Store</span>
+                </a>
+                {/* Web */}
+                <a
+                  href={item.webLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 text-gray-400 hover:text-white"
+                >
+                  <FaGlobe className="text-xl" />
+                  <span>Web</span>
+                </a>
+              </div>
+
+              <div className="mt-5">
+                <Link
+                  href={`/projects/${encodeURIComponent(item.title)}`}
+                  className="px-4 py-2 bg-purple text-white rounded-lg hover:bg-purple-dark"
+                >
+                  Know More
+                </Link>
               </div>
             </PinContainer>
           </div>
