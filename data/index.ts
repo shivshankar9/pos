@@ -77,6 +77,10 @@ export const projects = [
     img: "/p1.svg",
     iconLists: ["/re.svg", "/tail.svg", "/ts.svg"],
     link: "https://makebills.netlify.app",
+    desktopAppLink: "https://desktopapp.com/download",
+    playStoreLink: "https://play.google.com/store/apps/details?id=projectone",
+    webLink: "https://projectone.com",
+    knowMoreLink: "https://projectone.com/details",
   },
   {
     id: 2,
@@ -85,6 +89,10 @@ export const projects = [
     img: "/p2.svg",
     iconLists: ["/re.svg", "/tail.svg", "/ts.svg"],
     link: "https://ems.netlify.app",
+    desktopAppLink: "https://desktopapp.com/download",
+    playStoreLink: "https://play.google.com/store/apps/details?id=projectone",
+    webLink: "https://projectone.com",
+    knowMoreLink: "https://projectone.com/details",
   },
   {
     id: 3,
@@ -93,6 +101,10 @@ export const projects = [
     img: "/p3.svg",
     iconLists: ["/re.svg", "/tail.svg", "/ts.svg"],
     link: "/ui.visitor.com",
+    desktopAppLink: "https://desktopapp.com/download",
+    playStoreLink: "https://play.google.com/store/apps/details?id=projectone",
+    webLink: "https://projectone.com",
+    knowMoreLink: "https://projectone.com/details",
   },
   {
     id: 4,
@@ -101,11 +113,12 @@ export const projects = [
     img: "/p4.svg",
     iconLists: ["/re.svg", "/tail.svg", "/ts.svg"],
     link: "/expense-tracker.com",
+    desktopAppLink: "https://desktopapp.com/download",
+    playStoreLink: "https://play.google.com/store/apps/details?id=projectone",
+    webLink: "https://projectone.com",
+    knowMoreLink: "https://projectone.com/details",
   },
 ];
-
-
-
 
 export const testimonials = [
   {
@@ -197,7 +210,6 @@ export const workExperience = [
     thumbnail: "/exp4.svg",
   },
 ];
-
 
 export const socialMedia = [
   {
