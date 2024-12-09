@@ -211,17 +211,22 @@ export const workExperience = [
   },
 ];
 
+
 export const socialMedia = [
   {
     id: 1,
     img: "/git.svg",
+    link: "https://github.com/shivshankar9",
   },
   {
     id: 2,
     img: "/twit.svg",
+    link: "https://twitter.com/yourTwitterHandle", // Replace with actual link
   },
   {
     id: 3,
     img: "/link.svg",
+    link: "https://linkedin.com/in/shivshankarkumar281",
   },
 ];
+
