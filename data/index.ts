@@ -11,9 +11,9 @@ export const gridItems = [
     title: "I prioritize client collaboration, fostering open communication ",
     description: "",
     className: "lg:col-span-3 md:col-span-6 md:row-span-4 lg:min-h-[60vh]",
-    imgClassName: "w-full h-full",
+    imgClassName: "absolute right-0 bottom-20 md:w-75 w-70",
     titleClassName: "justify-end",
-    img: "/b1.svg",
+    img: "/b5.svg",
     spareImg: "",
   },
   {
@@ -49,7 +49,7 @@ export const gridItems = [
 
   {
     id: 5,
-    title: "Currently building a JS Animation library",
+    title: "Currently building a Finverge.Tech",
     description: "The Inside Scoop",
     className: "md:col-span-3 md:row-span-2",
     imgClassName: "absolute right-0 bottom-0 md:w-96 w-60",
