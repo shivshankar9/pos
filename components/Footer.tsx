@@ -1,7 +1,7 @@
 import { FaLocationArrow } from "react-icons/fa6";
-
 import { socialMedia } from "@/data";
 import MagicButton from "./MagicButton";
+import Link from "next/link"; // Import Link for navigation
 
 const Footer = () => {
   return (
@@ -32,12 +32,22 @@ const Footer = () => {
           />
         </a>
       </div>
+
       <div className="flex mt-16 md:flex-row flex-col justify-between items-center">
         <p className="md:text-base text-sm md:font-normal font-light">
           Copyright © 2024 Shiv
         </p>
 
         <div className="flex items-center md:gap-3 gap-6">
+          {/* Corrected Terms and Conditions link */}
+          <Link
+            href="/terms-and-conditions"
+            className="text-white hover:text-purple transition-colors duration-200 cursor-pointer z-10"
+          >
+            Terms and Conditions
+          </Link>
+
+          {/* Social media icons */}
           {socialMedia.map((info) => (
             <a
               key={info.id}
