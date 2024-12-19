@@ -1,11 +1,11 @@
 // app/blog/[slug]/page.tsx
 import { notFound } from "next/navigation";
-import { use } from "react";
 
 // Sample Data (replace with database or CMS calls)
 const blogPosts = [
   {
     id: 1,
+    slug: "exciting-new-opportunities-in-design",
     title: "Exciting New Opportunities in Design",
     date: "December 19, 2024",
     content:
@@ -13,12 +13,12 @@ const blogPosts = [
   },
   {
     id: 2,
+    slug: "hiring-updates-join-our-growing-team",
     title: "Hiring Updates: Join Our Growing Team",
     date: "December 10, 2024",
     content:
       "Join our expanding team! We are looking for passionate individuals in various fields. Check out the open positions.",
   },
-  // Add more blog posts here
 ];
 
 // Dynamic post rendering
@@ -26,7 +26,7 @@ const PostPage = ({ params }: { params: { slug: string } }) => {
   const post = blogPosts.find((p) => p.slug === params.slug);
 
   if (!post) {
-    notFound(); // Next.js 13: handles 404 page
+    return notFound(); // Handle 404 page
   }
 
   return (
