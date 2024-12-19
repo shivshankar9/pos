@@ -11,8 +11,36 @@ import Experience from "@/components/Experience";
 import Clients from "@/components/Clients";
 import Intergration from "@/components/Integrations";
 import RecentProjects from "@/components/RecentProjects";
+import MakePaymentsSlider from "@/components/MakePaymentsSlider"; // Import the slider component
 
 import { FloatingNav } from "@/components/ui/FloatingNavbar";
+
+const paymentMethods = [
+  {
+    id: 1,
+    title: "Credit Card",
+    description: "Pay securely with your credit card.",
+    icon: "https://via.placeholder.com/60?text=Credit+Card", // Replace with actual credit card icon
+  },
+  {
+    id: 2,
+    title: "PayPal",
+    description: "Make a quick payment via PayPal.",
+    icon: "https://via.placeholder.com/60?text=PayPal", // Replace with actual PayPal icon
+  },
+  {
+    id: 3,
+    title: "Bank Transfer",
+    description: "Transfer directly from your bank account.",
+    icon: "https://via.placeholder.com/60?text=Bank+Transfer", // Replace with actual Bank Transfer icon
+  },
+  {
+    id: 4,
+    title: "Crypto Payment",
+    description: "Pay using cryptocurrency.",
+    icon: "https://via.placeholder.com/60?text=Crypto", // Replace with actual Crypto Payment icon
+  },
+];
 
 const Home = () => {
   return (
@@ -21,6 +49,8 @@ const Home = () => {
         <FloatingNav navItems={navItems} />
         <Hero />
         <Grid />
+        <MakePaymentsSlider methods={paymentMethods} />{" "}
+        {/* Add the slider here */}
         <RecentProjects />
         <Intergration />
         <Clients />

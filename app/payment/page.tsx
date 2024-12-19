@@ -24,12 +24,12 @@ const PaymentPage = () => {
   const handlePayment = () => {
     if (typeof window !== "undefined" && (window as any).Razorpay) {
       const options = {
-        key: "rzp_live_hfbBkmLnUZrWdp", // Your Razorpay API key
+        key: "rzp_live_hfbBkmLnUZrWdpYour", //rzp_test_6GkVsJKB0s9HHx rzp_live_hfbBkmLnUZrWdpYour Razorpay API key
         amount: discountedPrice * 100, // Convert amount to paise
         currency: "INR",
         name: "Finverge.Tech",
         description: "Subscription Payment",
-        image: "/your-logo.png", // Optional: Add your logo
+        image: "/finvergelogo.png", // Optional: Add your logo
         handler: function (response: any) {
           setIsPaid(true); // Set the payment status to true
           alert("Payment Successful: " + response.razorpay_payment_id);
@@ -62,7 +62,7 @@ const PaymentPage = () => {
           Thank you for subscribing to Finverge.Tech. You’ll receive an email
           shortly with your login credentials.
         </p>
-        <img src="/success.svg" alt="Success" className="w-48 h-48 mb-8" />
+        <img src="/1success.svg" alt="Success" className="w-48 h-48 mb-8" />
         <button
           onClick={() => (window.location.href = "/dashboard")}
           className="bg-white text-blue-600 font-semibold py-3 px-8 rounded-lg shadow-md hover:bg-gray-200 transition"
