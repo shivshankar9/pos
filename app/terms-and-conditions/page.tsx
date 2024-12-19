@@ -240,7 +240,7 @@ const TermsAndConditions = () => {
           </h3>
           <p className="text-gray-600">
             Some features may involve third-party tools, and their use is
-            governed by the respective providers' terms.
+            governed by the respective providers terms.
           </p>
 
           <h2 className="text-xl font-semibold text-gray-700 mt-8">
@@ -313,7 +313,8 @@ const TermsAndConditions = () => {
             Disclaimer of Warranties
           </h2>
           <p className="text-gray-600">
-            The services are provided "as is" without warranties of any kind.
+            The services are provided &quot;as is&quot; without warranties of
+            any kind.
           </p>
           <h3 className="text-lg font-semibold text-gray-700 mt-4">
             No Guarantee
