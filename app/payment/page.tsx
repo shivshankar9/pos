@@ -1,5 +1,3 @@
-// app/payment/page.tsx
-
 "use client"; // This tells Next.js to treat this as a Client Component
 
 import { useEffect } from "react";
@@ -14,41 +12,44 @@ const PaymentPage = () => {
         const script = document.createElement("script");
         script.src = "https://checkout.razorpay.com/v1/checkout.js";
         script.async = true;
-        script.onload = () => setUpRazorpay(amount);
         document.body.appendChild(script);
       };
 
       loadRazorpay();
     }
-  }, [amount]);
+  }, []);
 
-  const setUpRazorpay = (amount: number) => {
-    const options = {
-      key: "rzp_test_6GkVsJKB0s9HHx", // Your Razorpay API key
-      amount: amount * 100, // Convert amount to paise
-      currency: "INR",
-      name: "Finverge.Tech",
-      description: "Subscription Payment",
-      image: "/your-logo.png", // Optional: Add your logo
-      handler: function (response: any) {
-        alert("Payment Successful: " + response.razorpay_payment_id);
-        // Handle success response here (e.g., save to DB)
-      },
-      prefill: {
-        name: "Customer Name",
-        email: "customer@example.com",
-        contact: "1234567890",
-      },
-      notes: {
-        address: "Customer Address",
-      },
-      theme: {
-        color: "#F37254", // Customize button color
-      },
-    };
+  const handlePayment = () => {
+    if (typeof window !== "undefined" && (window as any).Razorpay) {
+      const options = {
+        key: "rzp_test_6GkVsJKB0s9HHx", // Your Razorpay API key
+        amount: amount * 100, // Convert amount to paise
+        currency: "INR",
+        name: "Finverge.Tech",
+        description: "Subscription Payment",
+        image: "/your-logo.png", // Optional: Add your logo
+        handler: function (response: any) {
+          alert("Payment Successful: " + response.razorpay_payment_id);
+          // Handle success response here (e.g., save to DB)
+        },
+        prefill: {
+          name: "Customer Name",
+          email: "customer@example.com",
+          contact: "1234567890",
+        },
+        notes: {
+          address: "Customer Address",
+        },
+        theme: {
+          color: "#F37254", // Customize button color
+        },
+      };
 
-    const rzp = new window.Razorpay(options);
-    rzp.open();
+      const rzp = new (window as any).Razorpay(options);
+      rzp.open();
+    } else {
+      alert("Payment gateway is not loaded. Please try again later.");
+    }
   };
 
   return (
@@ -60,12 +61,13 @@ const PaymentPage = () => {
         <h2 className="text-xl font-semibold mb-4">Subscription Details</h2>
         <p className="mb-4">You will be subscribed for ₹999.</p>
 
-        {/* Razorpay Payment Button */}
+        {/* Cool Razorpay Payment Button */}
         <button
-          onClick={() => setUpRazorpay(amount)}
-          className="bg-purple-500 text-white py-2 px-8 rounded-md hover:bg-purple-600 transition-colors"
+          onClick={handlePayment}
+          className="relative group overflow-hidden bg-gradient-to-r from-purple-500 to-indigo-500 text-white py-3 px-10 rounded-lg shadow-lg transform transition duration-300 ease-in-out hover:scale-105"
         >
-          Pay ₹999
+          <span className="absolute inset-0 bg-gradient-to-r from-indigo-500 to-purple-500 opacity-0 transition-opacity duration-300 group-hover:opacity-100"></span>
+          <span className="relative z-10 text-lg font-semibold">Pay ₹999</span>
         </button>
       </div>
     </div>
