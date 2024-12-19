@@ -46,12 +46,20 @@ const Footer = () => {
           >
             Terms and Conditions
           </Link>
-          {/* Corrected Terms and Conditions link */}
+          {/* Corrected Blog link */}
           <Link
             href="/blog"
             className="text-white hover:text-purple transition-colors duration-200 cursor-pointer z-10"
           >
-            blog
+            Blog
+          </Link>
+
+          {/* Payment link */}
+          <Link
+            href="/payment"
+            className="text-white hover:text-purple transition-colors duration-200 cursor-pointer z-10"
+          >
+            Payment
           </Link>
 
           {/* Social media icons */}
