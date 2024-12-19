@@ -1,17 +1,17 @@
 import { FaLocationArrow } from "react-icons/fa6";
-import { socialMedia } from "@/data";
+import { socialMedia } from "@/data"; // Ensure this data is imported correctly
 import MagicButton from "./MagicButton";
 import Link from "next/link"; // Import Link for navigation
 
 const Footer = () => {
   return (
     <footer className="w-full pt-20 pb-10" id="contact">
-      {/* background grid */}
+      {/* Background grid */}
       <div className="w-full absolute left-0 -bottom-72 min-h-96">
         <img
           src="/footer-grid.svg"
           alt="grid"
-          className="w-full h-full opacity-50 "
+          className="w-full h-full opacity-50"
         />
       </div>
 
@@ -45,6 +45,13 @@ const Footer = () => {
             className="text-white hover:text-purple transition-colors duration-200 cursor-pointer z-10"
           >
             Terms and Conditions
+          </Link>
+          {/* Corrected Terms and Conditions link */}
+          <Link
+            href="/blog"
+            className="text-white hover:text-purple transition-colors duration-200 cursor-pointer z-10"
+          >
+            blog
           </Link>
 
           {/* Social media icons */}

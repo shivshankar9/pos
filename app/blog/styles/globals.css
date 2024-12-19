@@ -1,0 +1,21 @@
+/* app/blog/styles/globals.css */
+.blog-container {
+    padding: 2rem;
+}
+
+.blog-post {
+    background: #fff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+.blog-post h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #4a4a4a;
+}
+
+.blog-post p {
+    font-size: 1rem;
+    color: #636363;
+}

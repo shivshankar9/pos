@@ -1,0 +1,23 @@
+[
+  {
+    "title": "Frontend Developer",
+    "company": "Tech Solutions Inc.",
+    "location": "San Francisco, CA",
+    "description": "Join our growing team to build modern and responsive web applications.",
+    "applyLink": "https://example.com/apply/frontend-developer"
+  },
+  {
+    "title": "Backend Developer",
+    "company": "Code Craft Ltd.",
+    "location": "Remote",
+    "description": "We are looking for a backend developer to scale our cloud infrastructure.",
+    "applyLink": "https://example.com/apply/backend-developer"
+  },
+  {
+    "title": "UI/UX Designer",
+    "company": "Creative Minds",
+    "location": "New York, NY",
+    "description": "We need a talented UI/UX designer to create intuitive interfaces.",
+    "applyLink": "https://example.com/apply/ui-ux-designer"
+  }
+]
