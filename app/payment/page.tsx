@@ -29,7 +29,7 @@ const PaymentPage = () => {
         currency: "INR",
         name: "Finverge.Tech",
         description: "Subscription Payment",
-        image: "/finvergelogo.png", // Optional: Add your logo
+        image: "/finvergelogo.png", // Your logo
         handler: function (response: any) {
           setIsPaid(true); // Set the payment status to true
           alert("Payment Successful: " + response.razorpay_payment_id);

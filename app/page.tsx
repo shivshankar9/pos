@@ -5,7 +5,7 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 import Hero from "@/components/Hero";
 import Grid from "@/components/Grid";
 import Footer from "@/components/Footer";
-
+import Notes from "@/components/platformabout";
 import Approach from "@/components/Approach";
 import Experience from "@/components/Experience";
 import Clients from "@/components/Clients";
@@ -49,8 +49,9 @@ const Home = () => {
         <FloatingNav navItems={navItems} />
         <Hero />
         <Grid />
-        <MakePaymentsSlider methods={paymentMethods} />{" "}
+        {/* <MakePaymentsSlider methods={paymentMethods} />{" "} */}
         {/* Add the slider here */}
+        <Notes />
         <RecentProjects />
         <Intergration />
         <Clients />
