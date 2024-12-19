@@ -1,9 +1,11 @@
 "use client"; // This tells Next.js to treat this as a Client Component
 
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 
 const PaymentPage = () => {
-  const amount = 999; // Subscription amount
+  const [isPaid, setIsPaid] = useState(false);
+  const originalPrice = 1999; // Original subscription price
+  const discountedPrice = 999; // Discounted price
 
   // Dynamically load Razorpay script in the client-side only
   useEffect(() => {
@@ -22,15 +24,15 @@ const PaymentPage = () => {
   const handlePayment = () => {
     if (typeof window !== "undefined" && (window as any).Razorpay) {
       const options = {
-        key: "rzp_test_6GkVsJKB0s9HHx", // Your Razorpay API key
-        amount: amount * 100, // Convert amount to paise
+        key: "rzp_live_hfbBkmLnUZrWdp", // Your Razorpay API key
+        amount: discountedPrice * 100, // Convert amount to paise
         currency: "INR",
         name: "Finverge.Tech",
         description: "Subscription Payment",
         image: "/your-logo.png", // Optional: Add your logo
         handler: function (response: any) {
+          setIsPaid(true); // Set the payment status to true
           alert("Payment Successful: " + response.razorpay_payment_id);
-          // Handle success response here (e.g., save to DB)
         },
         prefill: {
           name: "Customer Name",
@@ -41,7 +43,7 @@ const PaymentPage = () => {
           address: "Customer Address",
         },
         theme: {
-          color: "#F37254", // Customize button color
+          color: "#4CAF50", // Green color for trust and urgency
         },
       };
 
@@ -52,22 +54,57 @@ const PaymentPage = () => {
     }
   };
 
+  if (isPaid) {
+    return (
+      <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-br from-green-400 to-blue-500 text-white">
+        <h1 className="text-4xl font-extrabold mb-4">Congratulations! 🎉</h1>
+        <p className="text-lg mb-6">
+          Thank you for subscribing to Finverge.Tech. You’ll receive an email
+          shortly with your login credentials.
+        </p>
+        <img src="/success.svg" alt="Success" className="w-48 h-48 mb-8" />
+        <button
+          onClick={() => (window.location.href = "/dashboard")}
+          className="bg-white text-blue-600 font-semibold py-3 px-8 rounded-lg shadow-md hover:bg-gray-200 transition"
+        >
+          Go to Dashboard
+        </button>
+      </div>
+    );
+  }
+
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
-      <h1 className="text-3xl font-bold my-8">Subscribe for ₹999</h1>
-      <p className="text-xl text-gray-700 mb-6">You are about to pay ₹999</p>
-
-      <div className="bg-white p-6 rounded-md shadow-md w-80 text-center">
-        <h2 className="text-xl font-semibold mb-4">Subscription Details</h2>
-        <p className="mb-4">You will be subscribed for ₹999.</p>
-
-        {/* Cool Razorpay Payment Button */}
+    <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-br from-purple-500 to-indigo-600 text-white">
+      <h1 className="text-4xl font-bold mb-4">Exclusive Subscription Offer</h1>
+      <p className="text-lg mb-6">
+        Unlock premium features at an unbeatable price!
+      </p>
+      <div className="bg-white text-gray-800 p-6 rounded-md shadow-lg w-96 text-center">
+        <div className="mb-4">
+          <span className="inline-block bg-red-500 text-white text-sm px-3 py-1 rounded-full">
+            50% OFF 🔥
+          </span>
+        </div>
+        <h2 className="text-2xl font-semibold mb-2 text-gray-800">
+          Just ₹{discountedPrice}
+        </h2>
+        <p className="text-sm text-gray-500 line-through mb-4">
+          Worth ₹{originalPrice}
+        </p>
+        <p className="text-lg font-medium text-green-600 mb-4">
+          Save ₹{originalPrice - discountedPrice} today!
+        </p>
+        <p className="mb-6">
+          Subscribe now and enjoy exclusive access to premium features.
+        </p>
         <button
           onClick={handlePayment}
-          className="relative group overflow-hidden bg-gradient-to-r from-purple-500 to-indigo-500 text-white py-3 px-10 rounded-lg shadow-lg transform transition duration-300 ease-in-out hover:scale-105"
+          className="relative group overflow-hidden bg-gradient-to-r from-green-500 to-blue-500 text-white py-3 px-10 rounded-lg shadow-lg transition-transform transform hover:scale-105"
         >
-          <span className="absolute inset-0 bg-gradient-to-r from-indigo-500 to-purple-500 opacity-0 transition-opacity duration-300 group-hover:opacity-100"></span>
-          <span className="relative z-10 text-lg font-semibold">Pay ₹999</span>
+          <span className="absolute inset-0 bg-gradient-to-r from-blue-500 to-green-500 opacity-0 transition-opacity duration-300 group-hover:opacity-100"></span>
+          <span className="relative z-10 text-lg font-semibold">
+            Pay ₹{discountedPrice}
+          </span>
         </button>
       </div>
     </div>
