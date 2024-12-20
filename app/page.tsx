@@ -49,7 +49,7 @@ const Home = () => {
         <FloatingNav navItems={navItems} />
         <Hero />
         <Grid />
-        {/* <MakePaymentsSlider methods={paymentMethods} />{" "} */}
+        <MakePaymentsSlider methods={paymentMethods} />{" "}
         {/* Add the slider here */}
         <Notes />
         <RecentProjects />
