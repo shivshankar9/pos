@@ -25,6 +25,7 @@ const PaymentPage = () => {
     if (typeof window !== "undefined" && (window as any).Razorpay) {
       const options = {
         key: "rzp_live_hfbBkmLnUZrWdp", //rzp_test_6GkVsJKB0s9HHx rzp_live_hfbBkmLnUZrWdpYour Razorpay API key
+
         amount: discountedPrice * 100, // Convert amount to paise
         currency: "INR",
         name: "Finverge.Tech",
@@ -64,7 +65,7 @@ const PaymentPage = () => {
         </p>
         <img src="/1success.svg" alt="Success" className="w-48 h-48 mb-8" />
         <button
-          onClick={() => (window.location.href = "/dashboard")}
+          onClick={() => (window.location.href = "finverge.tech")}
           className="bg-white text-blue-600 font-semibold py-3 px-8 rounded-lg shadow-md hover:bg-gray-200 transition"
         >
           Go to Dashboard

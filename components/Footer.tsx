@@ -39,14 +39,14 @@ const Footer = () => {
         </p>
 
         <div className="flex items-center md:gap-3 gap-6">
-          {/* Corrected Terms and Conditions link */}
+          {/* Terms and Conditions link */}
           <Link
             href="/terms-and-conditions"
             className="text-white hover:text-purple transition-colors duration-200 cursor-pointer z-10"
           >
             Terms and Conditions
           </Link>
-          {/* Corrected Blog link */}
+          {/* Blog link */}
           <Link
             href="/blog"
             className="text-white hover:text-purple transition-colors duration-200 cursor-pointer z-10"
@@ -60,6 +60,14 @@ const Footer = () => {
             className="text-white hover:text-purple transition-colors duration-200 cursor-pointer z-10"
           >
             Payment
+          </Link>
+
+          {/* Careers link */}
+          <Link
+            href="/careers"
+            className="text-white hover:text-purple transition-colors duration-200 cursor-pointer z-10"
+          >
+            Careers
           </Link>
 
           {/* Social media icons */}
