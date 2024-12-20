@@ -24,12 +24,8 @@ const PaymentPage = () => {
   const handlePayment = () => {
     if (typeof window !== "undefined" && (window as any).Razorpay) {
       const options = {
-<<<<<<< Updated upstream
         key: "rzp_live_hfbBkmLnUZrWdp", //rzp_test_6GkVsJKB0s9HHx rzp_live_hfbBkmLnUZrWdpYour Razorpay API key
 
-=======
-        key: "rzp_test_6GkVsJKB0s9HHx", //rzp_test_6GkVsJKB0s9HHx rzp_live_hfbBkmLnUZrWdpYour Razorpay API key
->>>>>>> Stashed changes
         amount: discountedPrice * 100, // Convert amount to paise
         currency: "INR",
         name: "Finverge.Tech",
