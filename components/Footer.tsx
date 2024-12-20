@@ -16,11 +16,11 @@ const Footer = () => {
       </div>
 
       <div className="flex flex-col items-center">
-        <h1 className="heading lg:max-w-[45vw]">
+        <h1 className="heading lg:max-w-[45vw] text-center px-4">
           Ready to take <span className="text-purple">your</span> digital
           presence to the next level?
         </h1>
-        <p className="text-white-200 md:mt-10 my-5 text-center">
+        <p className="text-white-200 md:mt-10 my-5 text-center px-4">
           Reach out to me today and let&apos;s discuss how I can help you
           achieve your goals.
         </p>
@@ -33,12 +33,12 @@ const Footer = () => {
         </a>
       </div>
 
-      <div className="flex mt-16 md:flex-row flex-col justify-between items-center">
+      <div className="flex mt-16 flex-col md:flex-row justify-between items-center px-4">
         <p className="md:text-base text-sm md:font-normal font-light">
           Copyright © 2024 Shiv
         </p>
 
-        <div className="flex items-center md:gap-3 gap-6">
+        <div className="flex flex-col md:flex-row items-center md:gap-3 gap-6 mt-4 md:mt-0">
           {/* Terms and Conditions link */}
           <Link
             href="/terms-and-conditions"
@@ -71,17 +71,19 @@ const Footer = () => {
           </Link>
 
           {/* Social media icons */}
-          {socialMedia.map((info) => (
-            <a
-              key={info.id}
-              href={info.link || "#"}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="w-10 h-10 cursor-pointer flex justify-center items-center backdrop-filter backdrop-blur-lg saturate-180 bg-opacity-75 bg-black-200 rounded-lg border border-black-300"
-            >
-              <img src={info.img} alt="icon" width={20} height={20} />
-            </a>
-          ))}
+          <div className="flex space-x-3 mt-4 md:mt-0">
+            {socialMedia.map((info) => (
+              <a
+                key={info.id}
+                href={info.link || "#"}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-10 h-10 cursor-pointer flex justify-center items-center backdrop-filter backdrop-blur-lg saturate-180 bg-opacity-75 bg-black-200 rounded-lg border border-black-300"
+              >
+                <img src={info.img} alt="icon" width={20} height={20} />
+              </a>
+            ))}
+          </div>
         </div>
       </div>
     </footer>
