@@ -10,15 +10,19 @@
     "deploy": "vercel --prod"
   },
   "dependencies": {
+    "@radix-ui/react-tabs": "^1.1.2",
+    "@radix-ui/react-toast": "^1.2.4",
+    "@radix-ui/react-tooltip": "^1.1.6",
     "@react-three/drei": "^9.105.4",
     "@react-three/fiber": "^8.16.2",
     "@sentry/nextjs": "^7.120.1",
+    "@shadcn/ui": "^0.0.4",
     "@tabler/icons-react": "^3.1.0",
     "@types/three": "^0.163.0",
     "@vercel/speed-insights": "^1.1.0",
     "class-variance-authority": "^0.7.0",
-    "clsx": "^2.1.0",
-    "framer-motion": "^11.0.25",
+    "clsx": "^2.1.1",
+    "framer-motion": "^11.15.0",
     "lucide-react": "^0.365.0",
     "mini-svg-data-uri": "^1.4.4",
     "next": "^14.2.20",
@@ -31,10 +35,11 @@
     "react-slick": "^0.30.3",
     "slick-carousel": "^1.8.1",
     "tailwind-merge": "^2.2.2",
+    "tailwind-variants": "^0.3.0",
     "tailwindcss-animate": "^1.0.7",
     "three": "^0.163.0",
     "three-globe": "^2.31.0",
-    "vercel": "^28.18.5"
+    "vercel": "^39.2.2"
   },
   "devDependencies": {
     "@types/node": "^20.17.10",

@@ -19,7 +19,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
-        {/* <link rel="icon" href="/public/" /> */}
+        <link rel="icon" href="finvergelogo.png" />
       </head>
       <body className={inter.className}>
         <ThemeProvider

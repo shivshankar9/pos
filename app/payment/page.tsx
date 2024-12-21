@@ -1,4 +1,5 @@
 "use client"; // This tells Next.js to treat this as a Client Component
+import Head from "next/head"; // Importing the Head component from Next.js
 
 import { useState, useEffect } from "react";
 
@@ -56,7 +57,7 @@ const PaymentPage = () => {
   };
 
   if (isPaid) {
-    return (
+    return (  
       <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-br from-green-400 to-blue-500 text-white">
         <h1 className="text-4xl font-extrabold mb-4">Congratulations! 🎉</h1>
         <p className="text-lg mb-6">
