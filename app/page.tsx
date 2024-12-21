@@ -12,7 +12,7 @@ import Integrations from "@/components/Integrations";
 import RecentProjects from "@/components/RecentProjects";
 // import FutureUI from "@/components/FutureUI";
 import { FloatingNav } from "@/components/ui/FloatingNavbar";
-import FuturisticBusinessSuite from "@/components/futureui";
+// import FuturisticBusinessSuite from "@/components/futureui";
 // Add imported component
 
 const Home = () => {
@@ -25,7 +25,7 @@ const Home = () => {
         <Notes />
         <RecentProjects />
         <Integrations />
-        <FuturisticBusinessSuite />
+        {/* <FuturisticBusinessSuite /> */}
         <Clients />
         <Experience />
         <Approach />
