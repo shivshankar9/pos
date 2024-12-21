@@ -4,7 +4,7 @@ import { navItems } from "@/data";
 import Hero from "@/components/Hero";
 import Grid from "@/components/Grid";
 import Footer from "@/components/Footer";
-import Notes from "@/components/PlatformAbout";
+import Notes from "@/components/platformabout";
 import Approach from "@/components/Approach";
 import Experience from "@/components/Experience";
 import Clients from "@/components/Clients";
