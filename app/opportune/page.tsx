@@ -1,5 +1,6 @@
 "use client";
 
+import { link } from "fs";
 import React, { useState, useEffect } from "react";
 import { FiSearch, FiMapPin } from "react-icons/fi";
 import { HiOutlineSun, HiOutlineMoon } from "react-icons/hi";
@@ -48,12 +49,14 @@ const events = [
     location: "San Francisco, CA",
     description:
       "A premier event connecting tech talent with industry leaders.",
+    link: "#",
   },
   {
     name: "Walk-In Interviews at Infosys",
     date: "2024-12-20",
     location: "Bangalore, India",
     description: "Open walk-in interviews for software roles.",
+    link: "https://www.infosys.com/careers",
   },
 ];
 
