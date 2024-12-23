@@ -132,9 +132,8 @@ const OpportunePage = () => {
         darkMode ? "bg-gray-900 text-gray-100" : "bg-gray-100 text-gray-900"
       } p-6`}
     >
-      {/* Header with Navbar */}
       <header
-        className={`flex justify-between items-center px-4 py-2 rounded-b-lg shadow-md ${
+        className={`flex flex-col md:flex-row justify-between items-center px-4 py-2 rounded-b-lg shadow-md ${
           darkMode ? "bg-gray-800" : "bg-white"
         }`}
       >
@@ -147,36 +146,36 @@ const OpportunePage = () => {
             Opportune
           </h1>
         </div>
-        <div className="flex space-x-6">
+        <div className="flex flex-col md:flex-row md:space-x-6 mt-4 md:mt-0">
           {/* Navbar links */}
           <button
             onClick={() => scrollToSection("job-listings")}
-            className="text-lg font-medium text-gray-600 dark:text-gray-300 hover:text-blue-500"
+            className="text-lg font-medium text-gray-600 dark:text-gray-300 hover:text-blue-500 mb-2 md:mb-0 transition-all duration-300"
           >
             Jobs
           </button>
           <button
             onClick={() => scrollToSection("events")}
-            className="text-lg font-medium text-gray-600 dark:text-gray-300 hover:text-blue-500"
+            className="text-lg font-medium text-gray-600 dark:text-gray-300 hover:text-blue-500 mb-2 md:mb-0 transition-all duration-300"
           >
             Events
           </button>
           <button
             onClick={() => scrollToSection("ai-resume-builder")}
-            className="text-lg font-medium text-gray-600 dark:text-gray-300 hover:text-blue-500"
+            className="text-lg font-medium text-gray-600 dark:text-gray-300 hover:text-blue-500 mb-2 md:mb-0 transition-all duration-300"
           >
             AI Resume Builder
           </button>
           <button
             onClick={() => scrollToSection("request-job")}
-            className="text-lg font-medium text-gray-600 dark:text-gray-300 hover:text-blue-500"
+            className="text-lg font-medium text-gray-600 dark:text-gray-300 hover:text-blue-500 mb-2 md:mb-0 transition-all duration-300"
           >
             Request a Job
           </button>
         </div>
         <button
           onClick={toggleDarkMode}
-          className="p-2 rounded-full text-xl text-black dark:text-white hover:bg-gray-200 dark:hover:bg-gray-700 transform transition-all duration-300 ease-in-out"
+          className="p-2 rounded-full text-xl text-black dark:text-white hover:bg-gray-200 dark:hover:bg-gray-700 transform transition-all duration-300 ease-in-out mt-4 md:mt-0"
           title="Toggle Dark Mode"
         >
           {darkMode ? (
