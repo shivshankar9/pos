@@ -1,6 +1,7 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { link } from "fs";
+import React, { useState, useEffect } from "react";
 import { FiSearch, FiMapPin } from "react-icons/fi";
 import { HiOutlineSun, HiOutlineMoon } from "react-icons/hi";
 import { IoRocketOutline } from "react-icons/io5";
@@ -31,7 +32,6 @@ const jobListings = [
     link: "https://www.tesla.com/careers",
   },
 ];
-
 const bannerImages = [
   { src: "banner1.png", alt: "Ad 1: Join Tech Job Fair", link: "#" },
   {
@@ -76,13 +76,6 @@ const OpportunePage = () => {
   });
 
   const [currentSlide, setCurrentSlide] = useState(0);
-  const [isLoggedIn, setIsLoggedIn] = useState(false); // State to track if the user is logged in
-  const [loginDetails, setLoginDetails] = useState({
-    email: "",
-    password: "",
-  });
-  const [errorMessage, setErrorMessage] = useState(""); // For login error message
-  const [showLoginModal, setShowLoginModal] = useState(true); // Show login modal by default
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -117,28 +110,6 @@ const OpportunePage = () => {
         alert("Unable to fetch your location.");
       }
     );
-  };
-
-  const handleLogin = () => {
-    // Sample login credentials (you can replace this with actual API call)
-    const validUsers = [
-      { email: "user1@example.com", password: "password1" },
-      { email: "user2@example.com", password: "password2" },
-    ];
-
-    const foundUser = validUsers.find(
-      (user) =>
-        user.email === loginDetails.email &&
-        user.password === loginDetails.password
-    );
-
-    if (foundUser) {
-      setIsLoggedIn(true);
-      setShowLoginModal(false);
-      setErrorMessage(""); // Clear any error messages
-    } else {
-      setErrorMessage("Invalid email or password.");
-    }
   };
 
   const handleRequestSubmit = () => {
@@ -216,261 +187,204 @@ const OpportunePage = () => {
         </button>
       </header>
 
-      {/* Login Modal */}
-      {showLoginModal && (
-        <div className="fixed inset-0 bg-gray-800 bg-opacity-50 flex items-center justify-center">
-          <div className="bg-white p-6 rounded-lg shadow-xl w-96">
-            <h2 className="text-2xl font-bold text-gray-800 mb-4 text-center">
-              Login
-            </h2>
-            {errorMessage && (
-              <p className="text-red-500 text-sm mb-4">{errorMessage}</p>
-            )}
-            <input
-              type="email"
-              placeholder="Email"
-              className="w-full p-3 mb-3 text-white border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-green-500"
-              value={loginDetails.email}
-              onChange={(e) =>
-                setLoginDetails({ ...loginDetails, email: e.target.value })
-              }
-            />
-            <input
-              type="password"
-              placeholder="Password"
-              className="w-full p-3 mb-3 border text-white border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-green-500"
-              value={loginDetails.password}
-              onChange={(e) =>
-                setLoginDetails({ ...loginDetails, password: e.target.value })
-              }
-            />
-            <div className="flex justify-between mt-4">
+      {/* Image Slider */}
+      <section className="mt-6">
+        <div className="relative w-full h-48 overflow-hidden rounded-lg shadow-lg">
+          {bannerImages.map((banner, index) => (
+            <a
+              href={banner.link}
+              key={index}
+              className={`absolute inset-0 transition-opacity duration-1000 ${
+                index === currentSlide ? "opacity-100" : "opacity-0"
+              }`}
+            >
+              <img
+                src={banner.src}
+                alt={banner.alt}
+                className="w-full h-full object-cover"
+              />
+            </a>
+          ))}
+          <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2">
+            {bannerImages.map((_, index) => (
               <button
-                onClick={handleLogin}
-                className="px-4 py-2 bg-green-500 text-white font-semibold rounded hover:bg-green-600 transition duration-200"
+                key={index}
+                onClick={() => setCurrentSlide(index)}
+                className={`w-3 h-3 rounded-full ${
+                  currentSlide === index ? "bg-white" : "bg-gray-500"
+                }`}
+              ></button>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Search Section */}
+      <section className="mt-6">
+        <div className="flex flex-col md:flex-row items-center gap-4">
+          <div className="flex items-center w-full md:w-1/2 bg-white dark:bg-gray-800 rounded-lg shadow-lg">
+            <FiSearch className="mx-3 text-gray-500" />
+            <input
+              type="text"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              placeholder="Search jobs by company, role, or location"
+              className="w-full py-3 px-2 text-gray-800 dark:text-gray-100 focus:outline-none bg-transparent"
+            />
+          </div>
+          <button
+            onClick={fetchGeolocation}
+            className="flex items-center px-4 py-3 bg-blue-500 text-white rounded-lg shadow hover:bg-blue-600 transform hover:scale-105"
+          >
+            <FiMapPin className="mr-2" /> Nearby Events
+          </button>
+        </div>
+        {geolocation && (
+          <p className="mt-2 text-sm text-gray-600">
+            Your location: Latitude {geolocation.lat}, Longitude{" "}
+            {geolocation.lon}
+          </p>
+        )}
+      </section>
+
+      {/* Job Listings */}
+      <section className="mt-8" id="job-listings">
+        <h2 className="text-2xl font-semibold">Available Jobs</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-4">
+          {filteredJobs.map((job, index) => (
+            <div
+              key={index}
+              className={`p-6 rounded-lg shadow ${
+                darkMode ? "bg-gray-800" : "bg-white"
+              } transform hover:scale-105 transition-transform duration-300`}
+            >
+              <h3 className="text-xl font-bold">{job.company}</h3>
+              <p className="text-gray-500 dark:text-gray-300">{job.role}</p>
+              <p className="text-sm">{job.location}</p>
+              <a
+                href={job.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-3 inline-block px-5 py-2 bg-gradient-to-r from-green-600 to-green-700 text-white font-semibold rounded-lg shadow-lg transform hover:scale-105 hover:from-green-500 hover:to-green-600 transition-all"
               >
-                Login
-              </button>
+                Apply Now
+              </a>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Events Section */}
+      <section className="mt-12" id="events">
+        <h2 className="text-2xl font-semibold text-gray-800 dark:text-white">
+          Upcoming Events
+        </h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-4">
+          {events.map((event, index) => (
+            <div
+              key={index}
+              className={`p-6 rounded-lg shadow-lg ${
+                darkMode ? "bg-gray-800 text-white" : "bg-white text-gray-800"
+              } transform hover:scale-105 hover:shadow-xl transition-all duration-300`}
+            >
+              <h3 className="text-xl font-bold">{event.name}</h3>
+              <p className="text-sm text-gray-600 dark:text-gray-300 mt-2">
+                {event.description}
+              </p>
+              <p className="text-sm mt-4 text-gray-500 dark:text-gray-400">
+                {event.date} - {event.location}
+              </p>
+              <div className="mt-4">
+                <a
+                  href={event.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-block px-5 py-2 bg-gradient-to-r from-green-600 to-green-700 text-white font-semibold rounded-lg shadow-lg transform hover:scale-105 hover:from-green-500 hover:to-green-600 transition-all"
+                >
+                  Learn More
+                </a>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* AI Resume Builder */}
+      <section className="mt-12 text-center" id="#ai-resume-builder">
+        <h2 className="text-2xl font-semibold">AI Resume Builder</h2>
+        <p className="mt-2 text-gray-500 dark:text-gray-300">
+          Use our AI-powered tool to create a professional resume in minutes.
+        </p>
+        <button
+          className="mt-4 py-3 px-6 bg-green-500 text-white rounded-lg shadow-lg hover:bg-green-600 transform hover:scale-110"
+          onClick={() => alert("AI Resume Builder Coming Soon!")}
+        >
+          Build Resume
+        </button>
+      </section>
+
+      {/* Request Job Section */}
+      <section className="mt-12 text-center" id="#request-job">
+        <p className="mt-2 text-gray-500 dark:text-gray-300">
+          Can&apos;t find the perfect job? Submit a request for a custom job!
+        </p>
+        <button
+          onClick={() => setShowRequestModal(true)}
+          className="mt-4 py-3 px-6 bg-gradient-to-r from-purple-500 to-blue-600 text-grey rounded-lg shadow-lg transform hover:scale-110"
+        >
+          <IoRocketOutline className="inline-block mr-2 text-2xl" /> Request a
+          Job
+        </button>
+      </section>
+
+      {/* Request Job Modal */}
+
+      {showRequestModal && (
+        <div className="fixed inset-0 bg-gray-900 bg-opacity-75 flex items-center justify-center">
+          <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg">
+            <h3 className="text-xl font-bold mb-4">Request a Job</h3>
+            <input
+              type="text"
+              placeholder="Job Title"
+              value={jobRequest.title}
+              onChange={(e) =>
+                setJobRequest({ ...jobRequest, title: e.target.value })
+              }
+              className="w-full p-3 mb-3 border rounded"
+            />
+            <textarea
+              placeholder="Job Description"
+              value={jobRequest.description}
+              onChange={(e) =>
+                setJobRequest({ ...jobRequest, description: e.target.value })
+              }
+              className="w-full p-3 mb-3 border rounded"
+            ></textarea>
+            <input
+              type="text"
+              placeholder="Preferred Location"
+              value={jobRequest.location}
+              onChange={(e) =>
+                setJobRequest({ ...jobRequest, location: e.target.value })
+              }
+              className="w-full p-3 mb-3 border rounded"
+            />
+            <div className="flex justify-end gap-4">
               <button
-                onClick={() => setShowLoginModal(false)}
-                className="px-4 py-2 bg-gray-400 text-white font-semibold rounded hover:bg-gray-500 transition duration-200"
+                onClick={() => setShowRequestModal(false)}
+                className="px-4 py-2 bg-gray-400 text-white rounded"
               >
                 Cancel
+              </button>
+              <button
+                onClick={handleRequestSubmit}
+                className="px-4 py-2 bg-blue-500 text-white rounded"
+              >
+                Submit
               </button>
             </div>
           </div>
         </div>
-      )}
-
-      {/* Content only visible if logged in */}
-      {isLoggedIn && (
-        <>
-          {/* Image Slider */}
-          <section className="mt-6">
-            <div className="relative w-full h-48 overflow-hidden rounded-lg shadow-lg">
-              {bannerImages.map((banner, index) => (
-                <a
-                  href={banner.link}
-                  key={index}
-                  className={`absolute inset-0 transition-opacity duration-1000 ${
-                    index === currentSlide ? "opacity-100" : "opacity-0"
-                  }`}
-                >
-                  <img
-                    src={banner.src}
-                    alt={banner.alt}
-                    className="w-full h-full object-cover"
-                  />
-                </a>
-              ))}
-              <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2">
-                {bannerImages.map((_, index) => (
-                  <button
-                    key={index}
-                    onClick={() => setCurrentSlide(index)}
-                    className={`w-3 h-3 rounded-full ${
-                      currentSlide === index ? "bg-white" : "bg-gray-500"
-                    }`}
-                  ></button>
-                ))}
-              </div>
-            </div>
-          </section>
-
-          {/* Search Section */}
-          <section className="mt-6">
-            <div className="flex flex-col md:flex-row items-center gap-4">
-              <div className="flex items-center w-full md:w-1/2 bg-white dark:bg-gray-800 rounded-lg shadow-lg">
-                <FiSearch className="mx-3 text-gray-500" />
-                <input
-                  type="text"
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                  placeholder="Search jobs by company, role, or location"
-                  className="w-full py-3 px-2 text-gray-800 dark:text-gray-100 focus:outline-none bg-transparent"
-                />
-              </div>
-              <button
-                onClick={fetchGeolocation}
-                className="flex items-center px-4 py-3 bg-blue-500 text-white rounded-lg shadow hover:bg-blue-600 transform hover:scale-105"
-              >
-                <FiMapPin className="mr-2" /> Nearby Events
-              </button>
-            </div>
-            {geolocation && (
-              <p className="mt-2 text-sm text-gray-600">
-                Your location: Latitude {geolocation.lat}, Longitude{" "}
-                {geolocation.lon}
-              </p>
-            )}
-          </section>
-
-          {/* Job Listings */}
-          <section className="mt-8" id="job-listings">
-            <h2 className="text-2xl font-semibold">Available Jobs</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-4">
-              {filteredJobs.map((job, index) => (
-                <div
-                  key={index}
-                  className={`p-6 rounded-lg shadow ${
-                    darkMode ? "bg-gray-800" : "bg-white"
-                  } transform hover:scale-105 transition-transform duration-300`}
-                >
-                  <h3 className="text-xl font-bold">{job.company}</h3>
-                  <p className="text-gray-500 dark:text-gray-300">{job.role}</p>
-                  <p className="text-sm">{job.location}</p>
-                  <a
-                    href={job.link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="mt-3 inline-block px-5 py-2 bg-gradient-to-r from-green-600 to-green-700 text-white font-semibold rounded-lg shadow-lg transform hover:scale-105 hover:from-green-500 hover:to-green-600 transition-all"
-                  >
-                    Apply Now
-                  </a>
-                </div>
-              ))}
-            </div>
-          </section>
-          {/* Events Section */}
-          <section className="mt-12" id="events">
-            <h2 className="text-2xl font-semibold text-gray-800 dark:text-white">
-              Upcoming Events
-            </h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-4">
-              {events.map((event, index) => (
-                <div
-                  key={index}
-                  className={`p-6 rounded-lg shadow-lg ${
-                    darkMode
-                      ? "bg-gray-800 text-white"
-                      : "bg-white text-gray-800"
-                  } transform hover:scale-105 hover:shadow-xl transition-all duration-300`}
-                >
-                  <h3 className="text-xl font-bold">{event.name}</h3>
-                  <p className="text-sm text-gray-600 dark:text-gray-300 mt-2">
-                    {event.description}
-                  </p>
-                  <p className="text-sm mt-4 text-gray-500 dark:text-gray-400">
-                    {event.date} - {event.location}
-                  </p>
-                  <div className="mt-4">
-                    <a
-                      href={event.link}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-block px-5 py-2 bg-gradient-to-r from-green-600 to-green-700 text-white font-semibold rounded-lg shadow-lg transform hover:scale-105 hover:from-green-500 hover:to-green-600 transition-all"
-                    >
-                      Learn More
-                    </a>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </section>
-
-          {/* AI Resume Builder */}
-          <section className="mt-12 text-center" id="#ai-resume-builder">
-            <h2 className="text-2xl font-semibold">AI Resume Builder</h2>
-            <p className="mt-2 text-gray-500 dark:text-gray-300">
-              Use our AI-powered tool to create a professional resume in
-              minutes.
-            </p>
-            <button
-              className="mt-4 py-3 px-6 bg-green-500 text-white rounded-lg shadow-lg hover:bg-green-600 transform hover:scale-110"
-              onClick={() => alert("AI Resume Builder Coming Soon!")}
-            >
-              Build Resume
-            </button>
-          </section>
-
-          {/* Request Job Section */}
-          <section className="mt-12 text-center" id="#request-job">
-            <p className="mt-2 text-gray-500 dark:text-gray-300">
-              Can&apos;t find the perfect job? Submit a request for a custom
-              job!
-            </p>
-            <button
-              onClick={() => setShowRequestModal(true)}
-              className="mt-4 py-3 px-6 bg-gradient-to-r from-purple-500 to-blue-600 text-grey rounded-lg shadow-lg transform hover:scale-110"
-            >
-              <IoRocketOutline className="inline-block mr-2 text-2xl" /> Request
-              a Job
-            </button>
-          </section>
-
-          {/* Request Job Modal */}
-
-          {showRequestModal && (
-            <div className="fixed inset-0 bg-gray-900 bg-opacity-75 flex items-center justify-center">
-              <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg">
-                <h3 className="text-xl font-bold mb-4">Request a Job</h3>
-                <input
-                  type="text"
-                  placeholder="Job Title"
-                  value={jobRequest.title}
-                  onChange={(e) =>
-                    setJobRequest({ ...jobRequest, title: e.target.value })
-                  }
-                  className="w-full p-3 mb-3 border rounded"
-                />
-                <textarea
-                  placeholder="Job Description"
-                  value={jobRequest.description}
-                  onChange={(e) =>
-                    setJobRequest({
-                      ...jobRequest,
-                      description: e.target.value,
-                    })
-                  }
-                  className="w-full p-3 mb-3 border rounded"
-                ></textarea>
-                <input
-                  type="text"
-                  placeholder="Preferred Location"
-                  value={jobRequest.location}
-                  onChange={(e) =>
-                    setJobRequest({ ...jobRequest, location: e.target.value })
-                  }
-                  className="w-full p-3 mb-3 border rounded"
-                />
-                <div className="flex justify-end gap-4">
-                  <button
-                    onClick={() => setShowRequestModal(false)}
-                    className="px-4 py-2 bg-gray-400 text-white rounded"
-                  >
-                    Cancel
-                  </button>
-                  <button
-                    onClick={handleRequestSubmit}
-                    className="px-4 py-2 bg-blue-500 text-white rounded"
-                  >
-                    Submit
-                  </button>
-                </div>
-              </div>
-            </div>
-          )}
-        </>
       )}
 
       {/* Footer */}
