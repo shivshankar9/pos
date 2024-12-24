@@ -275,9 +275,7 @@ const OpportunePage = () => {
 
       {/* Events Section */}
       <section className="mt-12" id="events">
-        <h2 className="text-2xl font-semibold text-gray-800 dark:text-white">
-          Upcoming Events
-        </h2>
+        <h2 className="text-2xl font-semibold">Upcoming Events</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-4">
           {events.map((event, index) => (
             <div
