@@ -1,6 +1,6 @@
 import React from "react";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/buttons";
+import { Card, CardContent } from "@/components/ui/cards";
 import Image from "next/image";
 import {
   featuresData,
@@ -8,14 +8,14 @@ import {
   statsData,
   testimonialsData,
 } from "@/data/landing";
-// import HeroSection from "@/components/hero";
+import HeroSection from "@/components/hero1";
 import Link from "next/link";
 
 const LandingPage = () => {
   return (
     <div className="min-h-screen bg-white">
       {/* Hero Section */}
-      {/* <HeroSection /> */}
+      <HeroSection />
 
       {/* Stats Section */}
       <section className="py-20 bg-blue-50">
