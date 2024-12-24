@@ -13,7 +13,7 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <ClerkProvider>
+    // <ClerkProvider>
       <html lang="en">
         <head>
           <link rel="icon" href="/logo-sm.png" sizes="any" />
@@ -30,6 +30,6 @@ export default function RootLayout({ children }) {
           </footer>
         </body>
       </html>
-    </ClerkProvider>
+    // </ClerkProvider>
   );
 }
