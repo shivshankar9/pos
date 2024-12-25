@@ -1,4 +1,4 @@
-"use client";
+"use client"; // Add this directive to mark the file as a Client Component
 
 import React, { useState, useEffect } from "react";
 import { FiSearch, FiMapPin } from "react-icons/fi";
@@ -61,9 +61,9 @@ const events = [
   },
 ];
 
-const OpportunePage = () => {
+const OpportunePage: React.FC = () => {
   const { isSignedIn } = useUser();
-  const { signIn } = useSignIn();
+  const { openSignIn } = useSignIn();
   const [darkMode, setDarkMode] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [filteredJobs, setFilteredJobs] = useState(jobListings);
@@ -99,11 +99,13 @@ const OpportunePage = () => {
   useEffect(() => {
     const timer = setTimeout(() => {
       if (!isSignedIn) {
-        signIn({ strategy: "oauth_google" });
+        openSignIn({ strategy: "oauth_google" }).catch((error) =>
+          console.error("Error opening sign in: ", error)
+        );
       }
     }, 3000);
     return () => clearTimeout(timer);
-  }, [isSignedIn, signIn]);
+  }, [isSignedIn, openSignIn]);
 
   const toggleDarkMode = () => setDarkMode(!darkMode);
 
