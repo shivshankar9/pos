@@ -1,5 +1,4 @@
 "use client"; // Ensures this is a Client Component
-
 import { useState, useEffect } from "react";
 
 const OpportunePage = () => {
@@ -28,7 +27,7 @@ const OpportunePage = () => {
 
   const handleLogin = () => {
     setShowLoginModal(false);
-    setShowSubscriptionModal(true);
+    setShowSubscriptionModal(true); // Open Subscription Modal after login
   };
 
   const handleSubscription = () => {
@@ -41,7 +40,7 @@ const OpportunePage = () => {
       {/* Login Modal */}
       {showLoginModal && (
         <div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50 backdrop-blur-md">
-          <div className="bg-white p-8 rounded-lg shadow-lg w-4/5 max-w-2xl">
+          <div className="bg-white p-8 rounded-lg shadow-lg w-96">
             <h2 className="text-2xl font-bold mb-6 text-purple-700 text-center">
               Login to Access Opportunities
             </h2>
@@ -55,18 +54,20 @@ const OpportunePage = () => {
               placeholder="Password"
               className="w-full p-4 mb-6 border rounded-lg"
             />
-            <div className="flex justify-between">
+            <div className="flex justify-center">
               <button
                 onClick={handleLogin}
-                className="px-6 py-3 bg-purple-600 text-white rounded-lg hover:bg-purple-700"
+                className="w-full py-3 bg-green-500 text-white rounded-lg hover:bg-green-600"
               >
                 Login
               </button>
+            </div>
+            <div className="mt-4">
               <button
-                onClick={() => setShowLoginModal(false)}
-                className="px-6 py-3 bg-gray-400 text-white rounded-lg hover:bg-gray-500"
+                onClick={() => setShowSubscriptionModal(true)} // Opens the subscription modal
+                className="w-full py-3 bg-yellow-500 text-white rounded-lg hover:bg-yellow-600"
               >
-                Cancel
+                Get Credentials
               </button>
             </div>
           </div>
@@ -84,7 +85,6 @@ const OpportunePage = () => {
               Subscribe now to gain access to premium job listings, AI-driven
               resume builder, and more. Join thousands of satisfied users!
             </p>
-
             <div className="bg-gray-100 p-4 rounded-lg shadow-inner mb-6">
               <h3 className="text-lg font-semibold mb-2 text-purple-700">
                 Why Subscribe?
@@ -92,10 +92,11 @@ const OpportunePage = () => {
               <ul className="list-disc list-inside text-gray-700 space-y-2">
                 <li>Access to premium and hidden job listings.</li>
                 <li>AI-powered resume optimization tools.</li>
-                <li>Priority customer support for all queries.</li>
-                <li>Personalized career guidance and tips.</li>
+                <li>Exclusive access to nearby job fairs and events.</li>
+                <li>Request job postings according to your preferences.</li>
               </ul>
             </div>
+
             {/* Testimonials Section */}
             <div className="mb-6">
               <h3 className="text-2xl font-bold mb-4 text-purple-700">
@@ -103,22 +104,24 @@ const OpportunePage = () => {
               </h3>
               <div className="bg-gray-100 p-4 rounded-lg shadow-lg space-y-4">
                 <blockquote className="text-gray-600 italic">
-                  "This platform helped me land my dream job in just a week! The
-                  premium features are worth every penny."
+                  &quot;This platform helped me land my dream job in just a
+                  week! The premium features are worth every penny.&quot;
                   <span className="block text-right font-bold text-gray-800">
-                    - John D.
+                    - Sameer.M
                   </span>
                 </blockquote>
                 <blockquote className="text-gray-600 italic">
-                  "The AI resume builder is a game-changer. My resume never
-                  looked better, and I got more callbacks than ever before!"
+                  &quot;The AI resume builder is a game-changer. My resume never
+                  looked better, and I got more callbacks than ever
+                  before!&quot;
                   <span className="block text-right font-bold text-gray-800">
                     - Sarah P.
                   </span>
                 </blockquote>
                 <blockquote className="text-gray-600 italic">
-                  "I appreciate the personalized tips and job recommendations.
-                  Subscribing was the best decision I've made!"
+                  &quot;I appreciate the personalized tips and job
+                  recommendations. Subscribing was the best decision I&apos;ve
+                  made!&quot;
                   <span className="block text-right font-bold text-gray-800">
                     - Ravi K.
                   </span>
@@ -147,7 +150,7 @@ const OpportunePage = () => {
 
             <div className="flex justify-between">
               <button
-                className="w-full align-middle bg-green-500 text-white py-3 px-6 rounded-lg shadow-lg mb-4 hover:bg-blue-600"
+                className="w-full align-middle bg-green-500 text-white py-3 px-6 rounded-lg shadow-lg mb-4 hover:bg-green-600"
                 onClick={handleSubscription}
               >
                 Subscribe Now
