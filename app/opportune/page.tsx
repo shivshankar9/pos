@@ -1,10 +1,10 @@
 "use client";
 
-import { link } from "fs";
 import React, { useState, useEffect } from "react";
 import { FiSearch, FiMapPin } from "react-icons/fi";
 import { HiOutlineSun, HiOutlineMoon } from "react-icons/hi";
 import { IoRocketOutline } from "react-icons/io5";
+import { useUser, useSignIn } from "@clerk/clerk-react";
 
 const jobListings = [
   {
@@ -32,6 +32,7 @@ const jobListings = [
     link: "https://www.tesla.com/careers",
   },
 ];
+
 const bannerImages = [
   { src: "banner1.png", alt: "Ad 1: Join Tech Job Fair", link: "#" },
   {
@@ -61,6 +62,8 @@ const events = [
 ];
 
 const OpportunePage = () => {
+  const { isSignedIn } = useUser();
+  const { signIn } = useSignIn();
   const [darkMode, setDarkMode] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [filteredJobs, setFilteredJobs] = useState(jobListings);
@@ -74,15 +77,13 @@ const OpportunePage = () => {
     description: "",
     location: "",
   });
-
   const [currentSlide, setCurrentSlide] = useState(0);
 
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % bannerImages.length);
-    }, 5000); // Change slide every 5 seconds
-
-    return () => clearInterval(interval); // Clear interval when component unmounts
+    }, 5000);
+    return () => clearInterval(interval);
   }, []);
 
   useEffect(() => {
@@ -94,6 +95,15 @@ const OpportunePage = () => {
       )
     );
   }, [searchTerm]);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      if (!isSignedIn) {
+        signIn({ strategy: "oauth_google" });
+      }
+    }, 3000);
+    return () => clearTimeout(timer);
+  }, [isSignedIn, signIn]);
 
   const toggleDarkMode = () => setDarkMode(!darkMode);
 
@@ -147,7 +157,6 @@ const OpportunePage = () => {
           </h1>
         </div>
         <div className="flex flex-col md:flex-row md:space-x-6 mt-4 md:mt-0">
-          {/* Navbar links */}
           <button
             onClick={() => scrollToSection("job-listings")}
             className="text-lg font-medium text-gray-600 dark:text-gray-300 hover:text-blue-500 mb-2 md:mb-0 transition-all duration-300"
@@ -186,7 +195,6 @@ const OpportunePage = () => {
         </button>
       </header>
 
-      {/* Image Slider */}
       <section className="mt-6">
         <div className="relative w-full h-48 overflow-hidden rounded-lg shadow-lg">
           {bannerImages.map((banner, index) => (
@@ -218,7 +226,6 @@ const OpportunePage = () => {
         </div>
       </section>
 
-      {/* Search Section */}
       <section className="mt-6">
         <div className="flex flex-col md:flex-row items-center gap-4">
           <div className="flex items-center w-full md:w-1/2 bg-white dark:bg-gray-800 rounded-lg shadow-lg">
@@ -246,7 +253,6 @@ const OpportunePage = () => {
         )}
       </section>
 
-      {/* Job Listings */}
       <section className="mt-8" id="job-listings">
         <h2 className="text-2xl font-semibold">Available Jobs</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-4">
@@ -273,7 +279,6 @@ const OpportunePage = () => {
         </div>
       </section>
 
-      {/* Events Section */}
       <section className="mt-12" id="events">
         <h2 className="text-2xl font-semibold">Upcoming Events</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-4">
@@ -306,8 +311,7 @@ const OpportunePage = () => {
         </div>
       </section>
 
-      {/* AI Resume Builder */}
-      <section className="mt-12 text-center" id="#ai-resume-builder">
+      <section className="mt-12 text-center" id="ai-resume-builder">
         <h2 className="text-2xl font-semibold">AI Resume Builder</h2>
         <p className="mt-2 text-gray-500 dark:text-gray-300">
           Use our AI-powered tool to create a professional resume in minutes.
@@ -320,8 +324,7 @@ const OpportunePage = () => {
         </button>
       </section>
 
-      {/* Request Job Section */}
-      <section className="mt-12 text-center" id="#request-job">
+      <section className="mt-12 text-center" id="request-job">
         <p className="mt-2 text-gray-500 dark:text-gray-300">
           Can&apos;t find the perfect job? Submit a request for a custom job!
         </p>
@@ -333,8 +336,6 @@ const OpportunePage = () => {
           Job
         </button>
       </section>
-
-      {/* Request Job Modal */}
 
       {showRequestModal && (
         <div className="fixed inset-0 bg-gray-900 bg-opacity-75 flex items-center justify-center">
@@ -384,7 +385,6 @@ const OpportunePage = () => {
         </div>
       )}
 
-      {/* Footer */}
       <footer className="mt-12 text-center">
         <p>
           &copy; {new Date().getFullYear()} Opportune. Designed for students,

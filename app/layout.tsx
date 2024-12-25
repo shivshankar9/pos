@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 
 import "./globals.css";
 import { ThemeProvider } from "./provider";
+import { ClerkProvider } from "@clerk/nextjs";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -17,6 +18,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
+        <ClerkProvider>
+
     <html lang="en" suppressHydrationWarning>
       <head>
         <link rel="icon" href="finvergelogo.png" />
@@ -32,5 +35,6 @@ export default function RootLayout({
         </ThemeProvider>
       </body>
     </html>
+    </ClerkProvider>
   );
 }

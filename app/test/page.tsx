@@ -150,7 +150,7 @@ const OpportunePage = () => {
 
             <div className="flex justify-between">
               <button
-                className="w-full align-middle bg-green-500 text-white py-3 px-6 rounded-lg shadow-lg mb-4 hover:bg-green-600"
+                className="w-full align-middle bg-green-500 text-white py-3 px-6 rounded-lg shadow-lg mb-4 hover:bg--600"
                 onClick={handleSubscription}
               >
                 Subscribe Now
