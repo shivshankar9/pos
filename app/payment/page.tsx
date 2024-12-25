@@ -57,7 +57,7 @@ const PaymentPage = () => {
   };
 
   if (isPaid) {
-    return (  
+    return (
       <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-br from-green-400 to-blue-500 text-white">
         <h1 className="text-4xl font-extrabold mb-4">Congratulations! 🎉</h1>
         <p className="text-lg mb-6">
@@ -66,7 +66,7 @@ const PaymentPage = () => {
         </p>
         <img src="/1success.svg" alt="Success" className="w-48 h-48 mb-8" />
         <button
-          onClick={() => (window.location.href = "finverge.tech")}
+          onClick={() => (window.location.href = "/app")}
           className="bg-white text-blue-600 font-semibold py-3 px-8 rounded-lg shadow-md hover:bg-gray-200 transition"
         >
           Go to Dashboard
