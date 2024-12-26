@@ -10,16 +10,12 @@ import Experience from "@/components/Experience";
 import Clients from "@/components/Clients";
 import Integrations from "@/components/Integrations";
 import RecentProjects from "@/components/RecentProjects";
-// import FutureUI from "@/components/FutureUI";
 import { FloatingNav } from "@/components/ui/FloatingNavbar";
-// import FuturisticBusinessSuite from "@/components/futureui";
-// Add imported component
 import { ClerkProvider } from "@clerk/nextjs";
-const clerkFrontendApi = "pk_test_Zml0LXNoYWQtODIuY2xlcmsuYWNjb3VudHMuZGV2JA"; // Replace with your Clerk frontend API
 
 const Home = () => {
   return (
-    <ClerkProvider frontendApi={clerkFrontendApi}>
+    <ClerkProvider>
       <main className="relative bg-black-100 flex justify-center items-center flex-col overflow-hidden mx-auto sm:px-10 px-5">
         <div className="max-w-7xl w-full">
           <FloatingNav navItems={navItems} />
@@ -28,7 +24,6 @@ const Home = () => {
           <Notes />
           <RecentProjects />
           <Integrations />
-          {/* <FuturisticBusinessSuite /> */}
           <Clients />
           <Experience />
           <Approach />

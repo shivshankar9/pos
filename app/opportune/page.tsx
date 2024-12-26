@@ -1,5 +1,4 @@
-// app/page.tsx
-"use client"; // Add this directive to mark the file as a Client Component
+"use client";
 
 import React, { useEffect, useState } from "react";
 import { FiSearch, FiMapPin } from "react-icons/fi";
@@ -80,6 +79,7 @@ const events = [
 ];
 
 const OpportunePage = () => {
+  
   const { isSignedIn, user } = useUser();
   const router = useRouter();
   const [darkMode, setDarkMode] = useState(false);
