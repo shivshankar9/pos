@@ -12,7 +12,7 @@ const subscribedEmails = ["shivshankarkumar281@gmail.com"];
 const nonSubscribedEmails = ["shivshankar4287@gmail.com"];
 
 // Function to check subscription
-const checkSubscription = (email) => {
+const checkSubscription = (email: string) => {
   return subscribedEmails.includes(email);
 };
 
@@ -163,9 +163,11 @@ const OpportunePage = () => {
           <SignIn
             routing="hash"
             signUpUrl="/sign-up"
-            appearance={{
-               // Just pass the string 'modal' directly
-            }}
+            appearance={
+              {
+                // Just pass the string 'modal' directly
+              }
+            }
           />
         </div>
       )}
