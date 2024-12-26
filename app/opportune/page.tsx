@@ -164,11 +164,12 @@ const OpportunePage = () => {
             routing="hash"
             signUpUrl="/sign-up"
             appearance={{
-              layout: "modal",
+               // Just pass the string 'modal' directly
             }}
           />
         </div>
       )}
+
       <header
         className={`flex flex-col md:flex-row justify-between items-center px-4 py-2 rounded-b-lg shadow-md ${
           darkMode ? "bg-gray-800" : "bg-white"
