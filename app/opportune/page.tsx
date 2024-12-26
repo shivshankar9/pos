@@ -442,6 +442,10 @@ const OpportunePage = () => {
                 <h2 className="text-2xl font-semibold mb-4">
                   Please subscribe to access the content.
                 </h2>
+                <p className="text-gray-500 mb-4">
+                  Subscribe now to gain access to premium job listings, AI-driven
+                  resume builder, and more. Join thousands of satisfied users!/</p>
+                
                 <button
                   onClick={() => router.push("/payment")}
                   className="px-6 py-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-all duration-300"
