@@ -348,7 +348,7 @@ const OpportunePage = () => {
                     } transform hover:scale-105 hover:shadow-xl transition-all duration-300`}
                   >
                     <h3 className="text-xl font-bold">{event.name}</h3>
-                    <p className="text-sm text-gray-600 dark:text-gray-300 mt-2">
+                    <p className="text-sm-bold text-gray-600 dark:text-gray-300 mt-2">
                       {event.description}
                     </p>
                     <p className="text-sm mt-4 text-gray-500 dark:text-gray-400">
