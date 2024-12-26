@@ -12,7 +12,7 @@ const subscribedEmails = ["shivshankarkumar281@gmail.com"];
 const nonSubscribedEmails = ["shivshankar4287@gmail.com"];
 
 // Function to check subscription
-const checkSubscription = (email: string): boolean => {
+const checkSubscription = (email) => {
   return subscribedEmails.includes(email);
 };
 
@@ -71,16 +71,13 @@ const events = [
   },
 ];
 
-const OpportunePage: React.FC = () => {
+const OpportunePage = () => {
   const { isSignedIn, user } = useUser();
   const router = useRouter();
   const [darkMode, setDarkMode] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [filteredJobs, setFilteredJobs] = useState(jobListings);
-  const [geolocation, setGeolocation] = useState<{
-    lat: number;
-    lon: number;
-  } | null>(null);
+  const [geolocation, setGeolocation] = useState(null);
   const [showRequestModal, setShowRequestModal] = useState(false);
   const [jobRequest, setJobRequest] = useState({
     title: "",
@@ -148,7 +145,7 @@ const OpportunePage: React.FC = () => {
     setJobRequest({ title: "", description: "", location: "" });
   };
 
-  const scrollToSection = (id: string) => {
+  const scrollToSection = (id) => {
     const section = document.getElementById(id);
     if (section) {
       section.scrollIntoView({ behavior: "smooth" });
@@ -397,7 +394,10 @@ const OpportunePage: React.FC = () => {
                   placeholder="Job Description"
                   value={jobRequest.description}
                   onChange={(e) =>
-                    setJobRequest({ ...jobRequest, description: e.target.value })
+                    setJobRequest({
+                      ...jobRequest,
+                      description: e.target.value,
+                    })
                   }
                   className="w-full p-3 mb-3 border rounded"
                 ></textarea>
@@ -447,13 +447,6 @@ const OpportunePage: React.FC = () => {
               <h2 className="text-2xl font-semibold mb-4">
                 Please sign in to access the content.
               </h2>
-              <SignIn
-                routing="hash"
-                signUpUrl="/sign-up"
-                appearance={{
-                  layout: "inline",
-                }}
-              />
             </div>
           )}
         </div>
@@ -464,7 +457,6 @@ const OpportunePage: React.FC = () => {
           &copy; {new Date().getFullYear()} Opportune. Designed for students,
           businesses, and job seekers.
         </p>
-  
       </footer>
     </div>
   );
