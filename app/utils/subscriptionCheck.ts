@@ -1,10 +1,12 @@
 // utils/subscriptionCheck.ts
 export const checkSubscriptionStatus = async (
-  userId: string
+  email: string
 ): Promise<boolean> => {
-  // Replace this with your actual subscription check logic
-  // For example, you might call an API to check the user's subscription status
-  // Here, we're just simulating with a timeout
-  await new Promise((resolve) => setTimeout(resolve, 100));
-  return true; // Assuming the user is subscribed
+  // Simulate checking subscription status
+  if (email === "shivshankarkumar281@gmail.com") {
+    return true; // Subscribed
+  } else if (email === "shivshankar4287@gmail.com") {
+    return false; // Not subscribed
+  }
+  return false; // Default to not subscribed
 };
