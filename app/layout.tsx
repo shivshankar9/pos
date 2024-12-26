@@ -1,38 +1,19 @@
-import type { Metadata } from "next";
-import { Inter } from "next/font/google";
-
-import "./globals.css";
-import { ThemeProvider } from "./provider";
+// app/layout.tsx
 import { ClerkProvider } from "@clerk/nextjs";
-
-const inter = Inter({ subsets: ["latin"] });
-const clerkFrontendApi = "pk_test_Zml0LXNoYWQtODIuY2xlcmsuYWNjb3VudHMuZGV2JA"; // Replace with your Clerk frontend API
-export const metadata: Metadata = {
-  title: "Beyond Boundaries ",
-  description: "Modern & Minimal JS Mastery Portfolio",
-};
+import "./globals.css";
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
-    <ClerkProvider frontendApi={clerkFrontendApi}>
-      <html lang="en" suppressHydrationWarning>
+    <ClerkProvider>
+      <html lang="en">
         <head>
-          <link rel="icon" href="finvergelogo.png" />
+          <link rel="icon" href="/favicon.ico" />
         </head>
-        <body className={inter.className}>
-          <ThemeProvider
-            attribute="class"
-            defaultTheme="dark"
-            enableSystem
-            disableTransitionOnChange
-          >
-            {children}
-          </ThemeProvider>
-        </body>
+        <body>{children}</body>
       </html>
     </ClerkProvider>
   );

@@ -1,10 +1,11 @@
 "use client"; // Add this directive to mark the file as a Client Component
 
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { FiSearch, FiMapPin } from "react-icons/fi";
 import { HiOutlineSun, HiOutlineMoon } from "react-icons/hi";
 import { IoRocketOutline } from "react-icons/io5";
-import { useUser, useSignIn } from "@clerk/clerk-react";
+import { useUser, SignIn } from "@clerk/nextjs";
+import { useRouter } from "next/navigation";
 
 const jobListings = [
   {
@@ -63,7 +64,7 @@ const events = [
 
 const OpportunePage: React.FC = () => {
   const { isSignedIn } = useUser();
-  const { openSignIn } = useSignIn();
+  const router = useRouter();
   const [darkMode, setDarkMode] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [filteredJobs, setFilteredJobs] = useState(jobListings);
@@ -78,6 +79,7 @@ const OpportunePage: React.FC = () => {
     location: "",
   });
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [showSignInModal, setShowSignInModal] = useState(false);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -97,15 +99,15 @@ const OpportunePage: React.FC = () => {
   }, [searchTerm]);
 
   useEffect(() => {
-    const timer = setTimeout(() => {
+    const checkSignInStatus = async () => {
+      await new Promise((resolve) => setTimeout(resolve, 3000)); // Wait for 3 seconds
       if (!isSignedIn) {
-        openSignIn({ strategy: "oauth_google" }).catch((error) =>
-          console.error("Error opening sign in: ", error)
-        );
+        setShowSignInModal(true); // Show sign-in modal if not signed in
       }
-    }, 3000);
-    return () => clearTimeout(timer);
-  }, [isSignedIn, openSignIn]);
+    };
+
+    checkSignInStatus();
+  }, [isSignedIn]);
 
   const toggleDarkMode = () => setDarkMode(!darkMode);
 
@@ -142,8 +144,19 @@ const OpportunePage: React.FC = () => {
     <div
       className={`min-h-screen ${
         darkMode ? "bg-gray-900 text-gray-100" : "bg-gray-100 text-gray-900"
-      } p-6`}
+      } p-6 ${showSignInModal ? "backdrop-blur" : ""}`}
     >
+      {showSignInModal && (
+        <div className="fixed inset-0 flex justify-center items-center bg-gray-900 bg-opacity-75 z-50">
+          <SignIn
+            routing="hash"
+            signUpUrl="/sign-up"
+            appearance={{
+              layout: "modal",
+            }}
+          />
+        </div>
+      )}
       <header
         className={`flex flex-col md:flex-row justify-between items-center px-4 py-2 rounded-b-lg shadow-md ${
           darkMode ? "bg-gray-800" : "bg-white"
