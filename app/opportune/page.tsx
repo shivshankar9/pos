@@ -7,6 +7,7 @@ import { IoRocketOutline } from "react-icons/io5";
 import { useUser, SignIn, SignOutButton, ClerkProvider } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
+import Head from "next/head";
 
 // Define the type for geolocation state
 interface Geolocation {
@@ -79,7 +80,6 @@ const events = [
 ];
 
 const OpportunePage = () => {
-  
   const { isSignedIn, user } = useUser();
   const router = useRouter();
   const [darkMode, setDarkMode] = useState(false);
@@ -162,6 +162,19 @@ const OpportunePage = () => {
 
   return (
     <ClerkProvider>
+      <Head>
+        <title>Opportune - Find Jobs, Events, and Build Your Resume</title>
+        <meta
+          name="description"
+          content="Opportune is your go-to platform for finding job listings, attending tech events, and building your resume with AI tools."
+        />
+        <meta
+          name="keywords"
+          content="jobs, hiring, resume builder, tech events, job fairs, walk-in interviews"
+        />
+        <meta name="robots" content="index, follow" />
+        <link rel="canonical" href="https://finverge.tech/opportune" />
+      </Head>
       <div
         className={`min-h-screen ${
           darkMode ? "bg-gray-900 text-gray-100" : "bg-gray-100 text-gray-900"
@@ -443,9 +456,11 @@ const OpportunePage = () => {
                   Please subscribe to access the content.
                 </h2>
                 <p className="text-gray-500 mb-4">
-                  Subscribe now to gain access to premium job listings, AI-driven
-                  resume builder, and more. Join thousands of satisfied users!</p>
-                
+                  Subscribe now to gain access to premium job listings,
+                  AI-driven resume builder, and more. Join thousands of
+                  satisfied users!
+                </p>
+
                 <button
                   onClick={() => router.push("/payment")}
                   className="px-6 py-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-all duration-300"
