@@ -6,6 +6,13 @@ import { HiOutlineSun, HiOutlineMoon } from "react-icons/hi";
 import { IoRocketOutline } from "react-icons/io5";
 import { useUser, SignIn, SignOutButton } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
+
+// Define the type for geolocation state
+interface Geolocation {
+  lat: number;
+  lon: number;
+}
 
 // Dummy email subscription data
 const subscribedEmails = ["shivshankarkumar281@gmail.com"];
@@ -44,13 +51,13 @@ const jobListings = [
 ];
 
 const bannerImages = [
-  { src: "banner1.png", alt: "Ad 1: Join Tech Job Fair", link: "#" },
+  { src: "/banner1.png", alt: "Ad 1: Join Tech Job Fair", link: "#" },
   {
-    src: "banner2.png",
+    src: "/banner2.png",
     alt: "Ad 2: Upgrade Your Skills with AI Courses",
     link: "#",
   },
-  { src: "banner3.png", alt: "Ad 3: Find Your Dream Job Now", link: "#" },
+  { src: "/banner3.png", alt: "Ad 3: Find Your Dream Job Now", link: "#" },
 ];
 
 const events = [
@@ -77,7 +84,7 @@ const OpportunePage = () => {
   const [darkMode, setDarkMode] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [filteredJobs, setFilteredJobs] = useState(jobListings);
-  const [geolocation, setGeolocation] = useState(null);
+  const [geolocation, setGeolocation] = useState<Geolocation | null>(null);
   const [showRequestModal, setShowRequestModal] = useState(false);
   const [jobRequest, setJobRequest] = useState({
     title: "",
@@ -145,7 +152,7 @@ const OpportunePage = () => {
     setJobRequest({ title: "", description: "", location: "" });
   };
 
-  const scrollToSection = (id) => {
+  const scrollToSection = (id: string) => {
     const section = document.getElementById(id);
     if (section) {
       section.scrollIntoView({ behavior: "smooth" });
@@ -160,15 +167,7 @@ const OpportunePage = () => {
     >
       {showSignInModal && (
         <div className="fixed inset-0 flex justify-center items-center bg-gray-900 bg-opacity-75 z-50">
-          <SignIn
-            routing="hash"
-            signUpUrl="/sign-up"
-            appearance={
-              {
-                // Just pass the string 'modal' directly
-              }
-            }
-          />
+          <SignIn routing="hash" signUpUrl="/sign-up" appearance={{}} />
         </div>
       )}
 
@@ -244,10 +243,11 @@ const OpportunePage = () => {
                     index === currentSlide ? "opacity-100" : "opacity-0"
                   }`}
                 >
-                  <img
+                  <Image
                     src={banner.src}
                     alt={banner.alt}
-                    className="w-full h-full object-cover"
+                    layout="fill"
+                    objectFit="cover"
                   />
                 </a>
               ))}
