@@ -444,7 +444,7 @@ const OpportunePage = () => {
                 </h2>
                 <p className="text-gray-500 mb-4">
                   Subscribe now to gain access to premium job listings, AI-driven
-                  resume builder, and more. Join thousands of satisfied users!/</p>
+                  resume builder, and more. Join thousands of satisfied users!</p>
                 
                 <button
                   onClick={() => router.push("/payment")}

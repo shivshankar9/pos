@@ -22,10 +22,10 @@ const Home = () => {
           <Hero />
           <Grid />
           <Notes />
-          <RecentProjects />
+          {/* <RecentProjects /> */}
           <Integrations />
-          <Clients />
-          <Experience />
+          {/* <Clients />
+          <Experience /> */}
           <Approach />
           <Footer />
         </div>
