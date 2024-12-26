@@ -170,7 +170,7 @@ const OpportunePage = () => {
         />
         <meta
           name="keywords"
-          content="jobs, hiring, resume builder, tech events, job fairs, walk-in interviews"
+          content="jobs, hiring, resume builder, tech events, job fairs, walk-in interviews, finvergetech, "
         />
         <meta name="robots" content="index, follow" />
         <link rel="canonical" href="https://finverge.tech/opportune" />
