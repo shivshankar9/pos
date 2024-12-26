@@ -71,18 +71,13 @@ const events = [
   },
 ];
 
-interface Geolocation {
-  lat: number;
-  lon: number;
-}
-
 const OpportunePage = () => {
   const { isSignedIn, user } = useUser();
   const router = useRouter();
   const [darkMode, setDarkMode] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [filteredJobs, setFilteredJobs] = useState(jobListings);
-  const [geolocation, setGeolocation] = useState<Geolocation | null>(null);
+  const [geolocation, setGeolocation] = useState(null);
   const [showRequestModal, setShowRequestModal] = useState(false);
   const [jobRequest, setJobRequest] = useState({
     title: "",
@@ -150,7 +145,7 @@ const OpportunePage = () => {
     setJobRequest({ title: "", description: "", location: "" });
   };
 
-  const scrollToSection = (id: string) => {
+  const scrollToSection = (id) => {
     const section = document.getElementById(id);
     if (section) {
       section.scrollIntoView({ behavior: "smooth" });
@@ -230,9 +225,9 @@ const OpportunePage = () => {
             )}
           </button>
           {isSignedIn && (
-            <SignOutButton className="mt-4 md:mt-0 px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-all duration-300">
-              Sign Out
-            </SignOutButton>
+            <div className="mt-4 md:mt-0 px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-all duration-300">
+              <SignOutButton>Sign Out</SignOutButton>
+            </div>
           )}
         </div>
       </header>
