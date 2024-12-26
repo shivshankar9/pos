@@ -71,13 +71,18 @@ const events = [
   },
 ];
 
+interface Geolocation {
+  lat: number;
+  lon: number;
+}
+
 const OpportunePage = () => {
   const { isSignedIn, user } = useUser();
   const router = useRouter();
   const [darkMode, setDarkMode] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [filteredJobs, setFilteredJobs] = useState(jobListings);
-  const [geolocation, setGeolocation] = useState(null);
+  const [geolocation, setGeolocation] = useState<Geolocation | null>(null);
   const [showRequestModal, setShowRequestModal] = useState(false);
   const [jobRequest, setJobRequest] = useState({
     title: "",
@@ -145,7 +150,7 @@ const OpportunePage = () => {
     setJobRequest({ title: "", description: "", location: "" });
   };
 
-  const scrollToSection = (id) => {
+  const scrollToSection = (id: string) => {
     const section = document.getElementById(id);
     if (section) {
       section.scrollIntoView({ behavior: "smooth" });
