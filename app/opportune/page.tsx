@@ -1,3 +1,4 @@
+// app/page.tsx
 "use client"; // Add this directive to mark the file as a Client Component
 
 import React, { useEffect, useState } from "react";
