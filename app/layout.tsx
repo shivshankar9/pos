@@ -1,40 +1,20 @@
-import type { Metadata } from "next";
-import { Inter } from "next/font/google";
-
-import "./globals.css";
-import { ThemeProvider } from "./provider";
+// app/layout.tsx
 import { ClerkProvider } from "@clerk/nextjs";
-
-const inter = Inter({ subsets: ["latin"] });
-
-export const metadata: Metadata = {
-  title: "Beyond Boundaries ",
-  description: "Modern & Minimal JS Mastery Portfolio",
-};
+import "./globals.css";
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
-        <ClerkProvider>
-
-    <html lang="en" suppressHydrationWarning>
-      <head>
-        <link rel="icon" href="finvergelogo.png" />
-      </head>
-      <body className={inter.className}>
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="dark"
-          enableSystem
-          disableTransitionOnChange
-        >
-          {children}
-        </ThemeProvider>
-      </body>
-    </html>
+    <ClerkProvider>
+      <html lang="en">
+        <head>
+          <link rel="icon" href="/favicon.ico" />
+        </head>
+        <body>{children}</body>
+      </html>
     </ClerkProvider>
   );
 }
