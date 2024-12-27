@@ -19,13 +19,13 @@ const SimrtPage: React.FC = () => {
           </p>
           <p>
             Your kindness, warmth, and infectious laughter make every day
-            special. Whether it’s your thoughtful gestures or your delightful
-            smile, you have a way of making life more magical. ✨
+            special. Whether it&rsquo;s your thoughtful gestures or your
+            delightful smile, you have a way of making life more magical. ✨
           </p>
           <p>
-            Never forget how amazing you are and how much you mean to me. You’re
-            not just my best friend—you’re the BEST friend anyone could ask for.
-            💕
+            Never forget how amazing you are and how much you mean to me.
+            You&rsquo;re not just my best friend—you&rsquo;re the BEST friend
+            anyone could ask for. 💕
           </p>
           <p>
             You are my sunshine on a cloudy day, my source of endless
@@ -34,7 +34,8 @@ const SimrtPage: React.FC = () => {
           </p>
           <div className="quote-box">
             <blockquote>
-              "A true friend like you is rare—a treasure beyond compare." 🌟
+              &quot;A true friend like you is rare—a treasure beyond
+              compare.&quot; 🌟
             </blockquote>
           </div>
           <p>
@@ -43,16 +44,17 @@ const SimrtPage: React.FC = () => {
           </p>
           <div className="special-section">
             <p>
-              Simrt, you’ve been a rockstar friend for such a long time, and
-              this page is just a tiny token of how much you’re cherished. 🌷
+              Simrt, you&rsquo;ve been a rockstar friend for such a long time,
+              and this page is just a tiny token of how much you&rsquo;re
+              cherished. 🌷
             </p>
             <p>
               Always remember: you are loved, you are valued, and you bring joy
               wherever you go. 🌈
             </p>
             <p>
-              Here’s to our endless memories, laughs, and everything that makes
-              you the amazing person you are. 💫
+              Here&rsquo;s to our endless memories, laughs, and everything that
+              makes you the amazing person you are. 💫
             </p>
           </div>
         </div>
