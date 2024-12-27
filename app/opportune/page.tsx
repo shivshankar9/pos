@@ -451,233 +451,87 @@ const OpportunePage = () => {
           </>
         ) : (
           <div className="flex flex-col items-center justify-center bg-gradient-to-br from-gray-100 via-white to-gray-100 min-h-screen p-8">
-            <div className="w-full max-w-6xl bg-white rounded-3xl shadow-2xl overflow-hidden">
+            <div className="w-full max-w-6xl bg-white rounded-xl shadow-2xl overflow-hidden">
               {/* Hero Section */}
-              <div className="relative bg-gradient-to-r from-blue-600 to-indigo-600 text-white p-12 text-center">
+              <div className="relative bg-blue-500 p-10 text-white text-center">
                 <h1 className="text-5xl font-bold leading-tight">
-                  Unlock Your Full Potential
+                  Empower Your Career Journey
                 </h1>
-                <p className="mt-6 text-lg">
-                  Seamlessly connect to opportunities and accelerate your career
-                  with our exclusive tools and resources.
+                <p className="mt-4 text-lg">
+                  Unlock premium job listings, AI-powered resume tools, and
+                  personalized coaching.
                 </p>
                 <motion.button
                   whileHover={{ scale: 1.1 }}
                   whileTap={{ scale: 0.95 }}
-                  className="mt-6 px-10 py-4 bg-yellow-400 text-blue-900 font-semibold text-lg rounded-full shadow-lg hover:shadow-xl transition duration-300"
+                  onClick={() => router.push("/payment")}
+                  className="mt-6 px-8 py-3 bg-white text-blue-500 font-semibold rounded-lg shadow-lg hover:shadow-xl transition duration-300"
                 >
-                  Subscribe Now
+                  Get Started for Free
                 </motion.button>
                 <img
-                  src="/images/ui-hero-image.svg"
-                  alt="Hero Visual"
-                  className="absolute right-10 top-10 w-48 opacity-80"
-                />
-                <img
-                  src="/images/user-friendly-tools.svg"
-                  alt="Tools Visual"
-                  className="absolute left-10 bottom-10 w-48 opacity-80"
+                  src="/images/hero-illustration.svg"
+                  alt="Hero Illustration"
+                  className="absolute right-5 bottom-5 w-40 opacity-70"
                 />
               </div>
 
               {/* Features Section */}
-              <div className="p-12 bg-gradient-to-r from-gray-50 to-white">
-                <h2 className="text-4xl font-bold text-center mb-10">
-                  Empowering Features
-                </h2>
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                  {[
-                    {
-                      title: "Smart Connections",
-                      description:
-                        "Get personalized job recommendations and network insights.",
-                      icon: "/images/connection.svg",
-                    },
-                    {
-                      title: "Instant Resume Analysis",
-                      description:
-                        "Optimize your CV for top-tier jobs using our AI tools.",
-                      icon: "/images/resume.svg",
-                    },
-                    {
-                      title: "Verified Opportunities",
-                      description:
-                        "Access exclusive roles, guaranteed to be authentic.",
-                      icon: "/images/opportunity.svg",
-                    },
-                  ].map((feature, index) => (
-                    <div
-                      key={index}
-                      className="p-8 bg-gray-50 rounded-lg shadow-md hover:shadow-lg transition group"
-                    >
-                      <img
-                        src={feature.icon}
-                        alt={feature.title}
-                        className="w-16 h-16 mx-auto mb-6"
-                      />
-                      <h3 className="text-xl font-semibold group-hover:text-indigo-600">
-                        {feature.title}
-                      </h3>
-                      <p className="text-gray-600 mt-4">
-                        {feature.description}
-                      </p>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              {/* Subscription Callouts */}
-              <div className="bg-gradient-to-r from-indigo-100 via-white to-gray-100 p-12">
-                <h2 className="text-4xl font-bold text-center mb-12">
-                  Choose Your Plan
-                </h2>
-                <div className="grid grid-cols-1 md:grid-cols-1 gap-6">
-                  <div className="p-8 rounded-2xl shadow-lg hover:shadow-xl transition bg-gradient-to-r from-purple-200 via-pink-200 to-red-200">
-                    {/* Title Section */}
-                    <h3 className="text-2xl font-bold mb-4 text-center">
-                      Exclusive Offer
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 p-10">
+                {[
+                  {
+                    title: "Exclusive Job Listings",
+                    description:
+                      "Find curated jobs from top companies worldwide.",
+                    icon: "🔥",
+                  },
+                  {
+                    title: "AI-Driven Resume Builder",
+                    description:
+                      "Stand out with professional, ATS-friendly resumes.",
+                    icon: "💡",
+                  },
+                  {
+                    title: "Career Coaching",
+                    description:
+                      "Get expert advice tailored to your career goals.",
+                    icon: "🎯",
+                  },
+                ].map((feature, index) => (
+                  <div
+                    key={index}
+                    className="p-6 bg-gray-50 rounded-lg shadow-md hover:shadow-lg transition"
+                  >
+                    <div className="text-4xl">{feature.icon}</div>
+                    <h3 className="text-xl font-semibold mt-4">
+                      {feature.title}
                     </h3>
-
-                    {/* Discount Badge */}
-                    <div className="mb-4 flex justify-center">
-                      <span className="text-2xl font-bold mb-4 text-center bg-red-500 text-white px-4 py-2 rounded-full">
-                        50% OFF 🔥
-                      </span>
-                    </div>
-
-                    {/* Price Section */}
-                    <div className="text-center text-red-600 text-lg font-semibold mb-4">
-                      <span className="line-through text-gray-500">{`₹1999`}</span>
-                      <span className="ml-2 text-3xl font-bold">{`₹999`}</span>
-                    </div>
-
-                    {/* Features List */}
-                    <ul className="mt-6 space-y-2 text-gray-600 text-center">
-                      <li className="flex justify-center items-center">
-                        <span className="mr-2 text-green-500">✔</span>
-                        All Features Included
-                      </li>
-                      <li className="flex justify-center items-center">
-                        <span className="mr-2 text-green-500">✔</span>
-                        Unlimited Access
-                      </li>
-                      <li className="flex justify-center items-center">
-                        <span className="mr-2 text-green-500">✔</span>
-                        Premium Support
-                      </li>
-                    </ul>
-
-                    {/* Subscribe Button */}
-                    <motion.button
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
-                      className="mt-8 w-full px-6 py-3 bg-indigo-600 text-white font-semibold rounded-lg hover:bg-indigo-700 transition"
-                    >
-                      Subscribe Now
-                    </motion.button>
+                    <p className="text-gray-600 mt-2">{feature.description}</p>
                   </div>
-                </div>
-              </div>
-
-              {/* Why Trust Us Section */}
-              <div className="p-12 bg-gradient-to-r from-gray-50 via-white to-gray-100">
-                <h2 className="text-4xl font-bold text-center mb-12">
-                  Why Trust Us?
-                </h2>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-                  {[
-                    {
-                      image: "/images/authentic-jobs.svg",
-                      title: "Authentic Opportunities",
-                      description:
-                        "Every opportunity we share is verified for authenticity, ensuring you only get the best.",
-                    },
-                    {
-                      image: "/images/user-experience.svg",
-                      title: "Exceptional User Experience",
-                      description:
-                        "Our platform is designed with user satisfaction in mind, making navigation seamless and intuitive.",
-                    },
-                  ].map((item, index) => (
-                    <div key={index} className="flex gap-8 items-center">
-                      <img
-                        src={item.image}
-                        alt={item.title}
-                        className="w-24 h-24"
-                      />
-                      <div>
-                        <h3 className="text-2xl font-bold">{item.title}</h3>
-                        <p className="text-gray-600 mt-2">{item.description}</p>
-                      </div>
-                    </div>
-                  ))}
-                </div>
+                ))}
               </div>
 
               {/* Testimonials Section */}
-              <div className="bg-gradient-to-r from-gray-50 via-white to-gray-100 p-12">
-                <h2 className="text-4xl font-bold text-center mb-12">
-                  What Our Users Say
+              <div className="bg-gray-100 p-10">
+                <h2 className="text-3xl font-bold text-center mb-8">
+                  What Users Are Saying
                 </h2>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                   {[
-                    {
-                      name: "Ravi Sharma",
-                      text: "This platform transformed my career! The tools are intuitive and helped me land my dream job.",
-                      avatar: "/images/avatar-ravi.svg",
-                    },
-                    {
-                      name: "Priya Jain",
-                      text: "I’ve tried other platforms, but nothing matches the authenticity and support I’ve received here.",
-                      avatar: "/images/avatar-priya.svg",
-                    },
-                    // Add more testimonials here
-                    {
-                      name: "Anil Kumar",
-                      text: "The personalized job recommendations saved me so much time! I'm now in a role I love.",
-                      avatar: "/images/avatar-anil.svg",
-                    },
-                    {
-                      name: "Neha Gupta",
-                      text: "The platform's resume analysis tool helped me refine my CV, leading to more interview opportunities.",
-                      avatar: "/images/avatar-neha.svg",
-                    },
-                    {
-                      name: "Suresh Reddy",
-                      text: "I was skeptical at first, but the platform truly offers verified job opportunities. It's been a game-changer!",
-                      avatar: "/images/avatar-suresh.svg",
-                    },
-                  ].map((testimonial, index) => (
+                    "Opportune has been a game-changer! Highly recommend it to anyone looking for career growth.",
+                    "The resume builder is super intuitive and professional.",
+                    "I landed my dream job in less than 2 months!",
+                    "The coaching sessions were incredibly insightful!",
+                    "I attended top-notch events and connected with industry leaders.",
+                  ].map((quote, index) => (
                     <div
                       key={index}
-                      className="flex gap-8 items-center bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition"
+                      className="p-6 bg-white rounded-lg shadow-md hover:shadow-lg transition"
                     >
-                      <img
-                        src={testimonial.avatar}
-                        alt={testimonial.name}
-                        className="w-16 h-16 rounded-full"
-                      />
-                      <div>
-                        <h3 className="text-xl font-bold text-indigo-600">
-                          {testimonial.name}
-                        </h3>
-                        <p className="text-gray-600 mt-2">{testimonial.text}</p>
-                      </div>
+                      <p className="text-gray-700 italic">{`"${quote}"`}</p>
                     </div>
                   ))}
                 </div>
-              </div>
-
-              {/* #1 Choice Section */}
-              <div className="p-12 bg-gradient-to-r from-indigo-200 via-white to-gray-100">
-                <h2 className="text-4xl font-bold text-center mb-8">
-                  The #1 Choice of Students & Working Professionals
-                </h2>
-                <p className="text-xl text-center text-gray-600">
-                  Find the perfect job with our advanced tools and resources.
-                  Thousands of students and working professionals trust us for
-                  their career advancement.
-                </p>
               </div>
             </div>
           </div>
