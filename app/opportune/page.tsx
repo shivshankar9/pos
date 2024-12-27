@@ -8,6 +8,7 @@ import { useUser, SignIn, SignOutButton, ClerkProvider } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import Head from "next/head";
+import { motion } from "framer-motion"; // Make sure this import is here
 
 // Define the type for geolocation state
 interface Geolocation {
@@ -115,7 +116,7 @@ const OpportunePage = () => {
 
   useEffect(() => {
     const checkSignInStatusAndSubscription = async () => {
-      await new Promise((resolve) => setTimeout(resolve, 3000)); // Wait for 3 seconds
+      await new Promise((resolve) => setTimeout(resolve, 5000)); // Wait for 3 seconds
       if (isSignedIn && user && user.primaryEmailAddress?.emailAddress) {
         const email = user.primaryEmailAddress.emailAddress;
         const subscribed = checkSubscription(email);
@@ -449,32 +450,90 @@ const OpportunePage = () => {
             )}
           </>
         ) : (
-          <div className="flex justify-center items-center min-h-screen">
-            {isSignedIn ? (
-              <div className="text-center">
-                <h2 className="text-2xl font-semibold mb-4">
-                  Please subscribe to access the content.
-                </h2>
-                <p className="text-gray-500 mb-4">
-                  Subscribe now to gain access to premium job listings,
-                  AI-driven resume builder, and more. Join thousands of
-                  satisfied users!
+          <div className="flex flex-col items-center justify-center bg-gradient-to-br from-gray-100 via-white to-gray-100 min-h-screen p-8">
+            <div className="w-full max-w-6xl bg-white rounded-xl shadow-2xl overflow-hidden">
+              {/* Hero Section */}
+              <div className="relative bg-blue-500 p-10 text-white text-center">
+                <h1 className="text-5xl font-bold leading-tight">
+                  Empower Your Career Journey
+                </h1>
+                <p className="mt-4 text-lg">
+                  Unlock premium job listings, AI-powered resume tools, and
+                  personalized coaching.
                 </p>
-
-                <button
+                <motion.button
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.95 }}
                   onClick={() => router.push("/payment")}
-                  className="px-6 py-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-all duration-300"
+                  className="mt-6 px-8 py-3 bg-white text-blue-500 font-semibold rounded-lg shadow-lg hover:shadow-xl transition duration-300"
                 >
-                  Subscribe Now
-                </button>
+                  Get Started for Free
+                </motion.button>
+                <img
+                  src="/images/hero-illustration.svg"
+                  alt="Hero Illustration"
+                  className="absolute right-5 bottom-5 w-40 opacity-70"
+                />
               </div>
-            ) : (
-              <div className="text-center">
-                <h2 className="text-2xl font-semibold mb-4">
-                  Please sign in to access the content.
+
+              {/* Features Section */}
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 p-10">
+                {[
+                  {
+                    title: "Exclusive Job Listings",
+                    description:
+                      "Find curated jobs from top companies worldwide.",
+                    icon: "🔥",
+                  },
+                  {
+                    title: "AI-Driven Resume Builder",
+                    description:
+                      "Stand out with professional, ATS-friendly resumes.",
+                    icon: "💡",
+                  },
+                  {
+                    title: "Career Coaching",
+                    description:
+                      "Get expert advice tailored to your career goals.",
+                    icon: "🎯",
+                  },
+                ].map((feature, index) => (
+                  <div
+                    key={index}
+                    className="p-6 bg-gray-50 rounded-lg shadow-md hover:shadow-lg transition"
+                  >
+                    <div className="text-4xl">{feature.icon}</div>
+                    <h3 className="text-xl font-semibold mt-4">
+                      {feature.title}
+                    </h3>
+                    <p className="text-gray-600 mt-2">{feature.description}</p>
+                  </div>
+                ))}
+              </div>
+
+              {/* Testimonials Section */}
+              <div className="bg-gray-100 p-10">
+                <h2 className="text-3xl font-bold text-center mb-8">
+                  What Users Are Saying
                 </h2>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {[
+                    "Opportune has been a game-changer! Highly recommend it to anyone looking for career growth.",
+                    "The resume builder is super intuitive and professional.",
+                    "I landed my dream job in less than 2 months!",
+                    "The coaching sessions were incredibly insightful!",
+                    "I attended top-notch events and connected with industry leaders.",
+                  ].map((quote, index) => (
+                    <div
+                      key={index}
+                      className="p-6 bg-white rounded-lg shadow-md hover:shadow-lg transition"
+                    >
+                      <p className="text-gray-700 italic">{`"${quote}"`}</p>
+                    </div>
+                  ))}
+                </div>
               </div>
-            )}
+            </div>
           </div>
         )}
 

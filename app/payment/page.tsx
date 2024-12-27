@@ -77,10 +77,12 @@ const PaymentPage = () => {
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-br from-purple-500 to-indigo-600 text-white">
+      
       <h1 className="text-4xl font-bold mb-4">Exclusive Subscription Offer</h1>
       <p className="text-lg mb-6">
         Unlock premium features at an unbeatable price!
       </p>
+      
       <div className="bg-white text-gray-800 p-6 rounded-md shadow-lg w-96 text-center">
         <div className="mb-4">
           <span className="inline-block bg-red-500 text-white text-sm px-3 py-1 rounded-full">
