@@ -634,7 +634,7 @@ const OpportunePage = () => {
                     {
                       name: "Priya Jain",
                       text: "I’ve tried other platforms, but nothing matches the authenticity and support I’ve received here.",
-                      avatar: "/images/avatar-priya.svg",
+                      avatar: "/priya.jpeg",
                     },
                     {
                       name: "Anil Kumar",
