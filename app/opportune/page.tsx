@@ -456,7 +456,7 @@ const OpportunePage = () => {
             )}
           </>
         ) : (
-          <div className="flex flex-col items-center justify-center bg-gradient-to-br from-gray-100 via-white to-gray-100 min-h-screen p-4 md:p-8">
+          <div className="flex flex-col items-center justify-center bg-gradient-to-br from-gray-100 via-white to-gray-100 min-h-screen p-2 md:p-8">
             <div className="w-full max-w-6xl bg-white rounded-3xl shadow-2xl overflow-hidden">
               {/* Hero Section */}
               <div className="relative bg-gradient-to-r from-blue-600 to-indigo-600 text-white p-8 md:p-12 text-center">
