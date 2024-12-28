@@ -9,7 +9,13 @@ import { useRouter } from "next/navigation";
 import Image from "next/image";
 import Head from "next/head";
 import { motion } from "framer-motion"; // Make sure this import is here
-
+import { FaUser } from "react-icons/fa";
+import { FaSearch } from "react-icons/fa";
+import { FaRegPaperPlane } from "react-icons/fa";
+import { GiNetworkBars } from "react-icons/gi";
+import { GiLightBulb } from "react-icons/gi";
+import { HiOutlineBadgeCheck } from "react-icons/hi";
+import { FaHandshake, FaRegThumbsUp } from "react-icons/fa";
 // Define the type for geolocation state
 interface Geolocation {
   lat: number;
@@ -468,18 +474,19 @@ const OpportunePage = () => {
                 >
                   Subscribe Now
                 </motion.button>
-                <img
+                {/* <img
                   src="/images/ui-hero-image.svg"
                   alt="Hero Visual"
                   className="absolute right-4 md:right-10 top-4 md:top-10 w-24 md:w-48 opacity-80"
-                />
-                <img
-                  src="/images/user-friendly-tools.svg"
+                /> */}
+                {/* <img
+                  src="/tools.svg"
                   alt="Tools Visual"
                   className="absolute left-4 md:left-10 bottom-4 md:bottom-10 w-24 md:w-48 opacity-80"
-                />
+                /> */}
               </div>
 
+              {/* How It Works Section */}
               {/* How It Works Section */}
               <div className="p-6 md:p-12 bg-gradient-to-r from-gray-50 to-white">
                 <h2 className="text-2xl md:text-4xl font-bold text-center mb-6 md:mb-10 text-gray-900">
@@ -491,30 +498,32 @@ const OpportunePage = () => {
                       title: "Sign Up",
                       description:
                         "Create your account and fill in your profile details.",
-                      icon: "/images/signup.svg",
+                      icon: (
+                        <FaUser className="w-12 md:w-16 h-12 md:h-16 mx-auto mb-4 md:mb-6" />
+                      ),
                     },
                     {
                       title: "Explore",
                       description:
                         "Browse through a variety of job opportunities and resources.",
-                      icon: "/images/explore.svg",
+                      icon: (
+                        <FaSearch className="w-12 md:w-16 h-12 md:h-16 mx-auto mb-4 md:mb-6" />
+                      ),
                     },
                     {
                       title: "Apply",
                       description:
                         "Apply to positions that best match your skills and interests.",
-                      icon: "/images/apply.svg",
+                      icon: (
+                        <FaRegPaperPlane className="w-12 md:w-16 h-12 md:h-16 mx-auto mb-4 md:mb-6" />
+                      ),
                     },
                   ].map((step, index) => (
                     <div
                       key={index}
                       className="p-6 md:p-8 bg-gray-50 rounded-lg shadow-md hover:shadow-lg transition group"
                     >
-                      <img
-                        src={step.icon}
-                        alt={step.title}
-                        className="w-12 md:w-16 h-12 md:h-16 mx-auto mb-4 md:mb-6"
-                      />
+                      {step.icon}
                       <h3 className="text-lg md:text-xl font-semibold group-hover:text-indigo-600 text-gray-900">
                         {step.title}
                       </h3>
@@ -537,30 +546,32 @@ const OpportunePage = () => {
                       title: "Smart Connections",
                       description:
                         "Get personalized job recommendations and network insights.",
-                      icon: "/images/connection.svg",
+                      icon: (
+                        <GiNetworkBars className="w-12 md:w-16 h-12 md:h-16 mx-auto mb-4 md:mb-6" />
+                      ),
                     },
                     {
                       title: "Instant Resume Analysis",
                       description:
                         "Optimize your CV for top-tier jobs using our AI tools.",
-                      icon: "/images/resume.svg",
+                      icon: (
+                        <GiLightBulb className="w-12 md:w-16 h-12 md:h-16 mx-auto mb-4 md:mb-6" />
+                      ),
                     },
                     {
                       title: "Verified Opportunities",
                       description:
                         "Access exclusive roles, guaranteed to be authentic.",
-                      icon: "/images/opportunity.svg",
+                      icon: (
+                        <HiOutlineBadgeCheck className="w-12 md:w-16 h-12 md:h-16 mx-auto mb-4 md:mb-6" />
+                      ),
                     },
                   ].map((feature, index) => (
                     <div
                       key={index}
                       className="p-6 md:p-8 bg-gray-50 rounded-lg shadow-md hover:shadow-lg transition group"
                     >
-                      <img
-                        src={feature.icon}
-                        alt={feature.title}
-                        className="w-12 md:w-16 h-12 md:h-16 mx-auto mb-4 md:mb-6"
-                      />
+                      {feature.icon}
                       <h3 className="text-lg md:text-xl font-semibold group-hover:text-indigo-600 text-gray-900">
                         {feature.title}
                       </h3>
@@ -571,7 +582,6 @@ const OpportunePage = () => {
                   ))}
                 </div>
               </div>
-
               {/* Subscription Callouts */}
               <div className="bg-gradient-to-r from-indigo-100 via-white to-gray-100 p-6 md:p-12">
                 <h2 className="text-2xl md:text-4xl font-bold text-center mb-6 md:mb-12 text-gray-900">
@@ -633,13 +643,17 @@ const OpportunePage = () => {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-12">
                   {[
                     {
-                      image: "/images/authentic-jobs.svg",
+                      image: (
+                        <FaHandshake className="w-16 h-16 text-indigo-600 mx-auto" />
+                      ),
                       title: "Authentic Opportunities",
                       description:
                         "Every opportunity we share is verified for authenticity, ensuring you only get the best.",
                     },
                     {
-                      image: "/images/user-experience.svg",
+                      image: (
+                        <FaRegThumbsUp className="w-16 h-16 text-indigo-600 mx-auto" />
+                      ),
                       title: "Exceptional User Experience",
                       description:
                         "Our platform is designed with user satisfaction in mind, making navigation seamless and intuitive.",
@@ -649,11 +663,7 @@ const OpportunePage = () => {
                       key={index}
                       className="flex flex-col md:flex-row gap-4 md:gap-8 items-center"
                     >
-                      <img
-                        src={item.image}
-                        alt={item.title}
-                        className="w-16 md:w-24 h-16 md:h-24"
-                      />
+                      {item.image}
                       <div className="text-center md:text-left">
                         <h3 className="text-lg md:text-2xl font-bold text-gray-900">
                           {item.title}
