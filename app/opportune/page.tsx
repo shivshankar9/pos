@@ -450,42 +450,42 @@ const OpportunePage = () => {
             )}
           </>
         ) : (
-          <div className="flex flex-col items-center justify-center bg-gradient-to-br from-gray-100 via-white to-gray-100 min-h-screen p-8">
+          <div className="flex flex-col items-center justify-center bg-gradient-to-br from-gray-100 via-white to-gray-100 min-h-screen p-4 md:p-8">
             <div className="w-full max-w-6xl bg-white rounded-3xl shadow-2xl overflow-hidden">
               {/* Hero Section */}
-              <div className="relative bg-gradient-to-r from-blue-600 to-indigo-600 text-white p-12 text-center">
-                <h1 className="text-5xl font-bold leading-tight">
+              <div className="relative bg-gradient-to-r from-blue-600 to-indigo-600 text-white p-8 md:p-12 text-center">
+                <h1 className="text-3xl md:text-5xl font-bold leading-tight">
                   Unlock Your Full Potential
                 </h1>
-                <p className="mt-6 text-lg">
+                <p className="mt-4 md:mt-6 text-md md:text-lg">
                   Seamlessly connect to opportunities and accelerate your career
                   with our exclusive tools and resources.
                 </p>
                 <motion.button
                   whileHover={{ scale: 1.1 }}
                   whileTap={{ scale: 0.95 }}
-                  className="mt-6 px-10 py-4 bg-yellow-400 text-blue-900 font-semibold text-lg rounded-full shadow-lg hover:shadow-xl transition duration-300"
+                  className="mt-4 md:mt-6 px-6 md:px-10 py-2 md:py-4 bg-yellow-400 text-blue-900 font-semibold text-md md:text-lg rounded-full shadow-lg hover:shadow-xl transition duration-300"
                 >
                   Subscribe Now
                 </motion.button>
                 <img
                   src="/images/ui-hero-image.svg"
                   alt="Hero Visual"
-                  className="absolute right-10 top-10 w-48 opacity-80"
+                  className="absolute right-4 md:right-10 top-4 md:top-10 w-24 md:w-48 opacity-80"
                 />
                 <img
                   src="/images/user-friendly-tools.svg"
                   alt="Tools Visual"
-                  className="absolute left-10 bottom-10 w-48 opacity-80"
+                  className="absolute left-4 md:left-10 bottom-4 md:bottom-10 w-24 md:w-48 opacity-80"
                 />
               </div>
 
               {/* Features Section */}
-              <div className="p-12 bg-gradient-to-r from-gray-50 to-white">
-                <h2 className="text-4xl font-bold text-center mb-10">
+              <div className="p-6 md:p-12 bg-gradient-to-r from-gray-50 to-white">
+                <h2 className="text-2xl md:text-4xl font-bold text-center mb-6 md:mb-10">
                   Empowering Features
                 </h2>
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
                   {[
                     {
                       title: "Smart Connections",
@@ -508,17 +508,17 @@ const OpportunePage = () => {
                   ].map((feature, index) => (
                     <div
                       key={index}
-                      className="p-8 bg-gray-50 rounded-lg shadow-md hover:shadow-lg transition group"
+                      className="p-6 md:p-8 bg-gray-50 rounded-lg shadow-md hover:shadow-lg transition group"
                     >
                       <img
                         src={feature.icon}
                         alt={feature.title}
-                        className="w-16 h-16 mx-auto mb-6"
+                        className="w-12 md:w-16 h-12 md:h-16 mx-auto mb-4 md:mb-6"
                       />
-                      <h3 className="text-xl font-semibold group-hover:text-indigo-600">
+                      <h3 className="text-lg md:text-xl font-semibold group-hover:text-indigo-600">
                         {feature.title}
                       </h3>
-                      <p className="text-gray-600 mt-4">
+                      <p className="text-gray-600 mt-2 md:mt-4">
                         {feature.description}
                       </p>
                     </div>
@@ -527,20 +527,20 @@ const OpportunePage = () => {
               </div>
 
               {/* Subscription Callouts */}
-              <div className="bg-gradient-to-r from-indigo-100 via-white to-gray-100 p-12">
-                <h2 className="text-4xl font-bold text-center mb-12">
+              <div className="bg-gradient-to-r from-indigo-100 via-white to-gray-100 p-6 md:p-12">
+                <h2 className="text-2xl md:text-4xl font-bold text-center mb-6 md:mb-12">
                   Choose Your Plan
                 </h2>
                 <div className="grid grid-cols-1 md:grid-cols-1 gap-6">
-                  <div className="p-8 rounded-2xl shadow-lg hover:shadow-xl transition bg-gradient-to-r from-purple-200 via-pink-200 to-red-200">
+                  <div className="p-6 md:p-8 rounded-2xl shadow-lg hover:shadow-xl transition bg-gradient-to-r from-purple-200 via-pink-200 to-red-200">
                     {/* Title Section */}
-                    <h3 className="text-2xl font-bold mb-4 text-center">
+                    <h3 className="text-xl md:text-2xl font-bold mb-4 text-center">
                       Exclusive Offer
                     </h3>
 
                     {/* Discount Badge */}
                     <div className="mb-4 flex justify-center">
-                      <span className="text-2xl font-bold mb-4 text-center bg-red-500 text-white px-4 py-2 rounded-full">
+                      <span className="text-xl md:text-2xl font-bold mb-4 text-center bg-red-500 text-white px-4 py-2 rounded-full">
                         50% OFF 🔥
                       </span>
                     </div>
@@ -548,11 +548,11 @@ const OpportunePage = () => {
                     {/* Price Section */}
                     <div className="text-center text-red-600 text-lg font-semibold mb-4">
                       <span className="line-through text-gray-500">{`₹1999`}</span>
-                      <span className="ml-2 text-3xl font-bold">{`₹999`}</span>
+                      <span className="ml-2 text-2xl md:text-3xl font-bold">{`₹999`}</span>
                     </div>
 
                     {/* Features List */}
-                    <ul className="mt-6 space-y-2 text-gray-600 text-center">
+                    <ul className="mt-4 md:mt-6 space-y-2 text-gray-600 text-center">
                       <li className="flex justify-center items-center">
                         <span className="mr-2 text-green-500">✔</span>
                         All Features Included
@@ -571,7 +571,7 @@ const OpportunePage = () => {
                     <motion.button
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
-                      className="mt-8 w-full px-6 py-3 bg-indigo-600 text-white font-semibold rounded-lg hover:bg-indigo-700 transition"
+                      className="mt-6 md:mt-8 w-full px-4 md:px-6 py-2 md:py-3 bg-indigo-600 text-white font-semibold rounded-lg hover:bg-indigo-700 transition"
                     >
                       Subscribe Now
                     </motion.button>
@@ -580,11 +580,11 @@ const OpportunePage = () => {
               </div>
 
               {/* Why Trust Us Section */}
-              <div className="p-12 bg-gradient-to-r from-gray-50 via-white to-gray-100">
-                <h2 className="text-4xl font-bold text-center mb-12">
+              <div className="p-6 md:p-12 bg-gradient-to-r from-gray-50 via-white to-gray-100">
+                <h2 className="text-2xl md:text-4xl font-bold text-center mb-6 md:mb-12">
                   Why Trust Us?
                 </h2>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-12">
                   {[
                     {
                       image: "/images/authentic-jobs.svg",
@@ -599,14 +599,19 @@ const OpportunePage = () => {
                         "Our platform is designed with user satisfaction in mind, making navigation seamless and intuitive.",
                     },
                   ].map((item, index) => (
-                    <div key={index} className="flex gap-8 items-center">
+                    <div
+                      key={index}
+                      className="flex flex-col md:flex-row gap-4 md:gap-8 items-center"
+                    >
                       <img
                         src={item.image}
                         alt={item.title}
-                        className="w-24 h-24"
+                        className="w-16 md:w-24 h-16 md:h-24"
                       />
-                      <div>
-                        <h3 className="text-2xl font-bold">{item.title}</h3>
+                      <div className="text-center md:text-left">
+                        <h3 className="text-lg md:text-2xl font-bold">
+                          {item.title}
+                        </h3>
                         <p className="text-gray-600 mt-2">{item.description}</p>
                       </div>
                     </div>
@@ -615,11 +620,11 @@ const OpportunePage = () => {
               </div>
 
               {/* Testimonials Section */}
-              <div className="bg-gradient-to-r from-gray-50 via-white to-gray-100 p-12">
-                <h2 className="text-4xl font-bold text-center mb-12">
+              <div className="bg-gradient-to-r from-gray-50 via-white to-gray-100 p-6 md:p-12">
+                <h2 className="text-2xl md:text-4xl font-bold text-center mb-6 md:mb-12">
                   What Our Users Say
                 </h2>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-12">
                   {[
                     {
                       name: "Ravi Sharma",
@@ -631,7 +636,6 @@ const OpportunePage = () => {
                       text: "I’ve tried other platforms, but nothing matches the authenticity and support I’ve received here.",
                       avatar: "/images/avatar-priya.svg",
                     },
-                    // Add more testimonials here
                     {
                       name: "Anil Kumar",
                       text: "The personalized job recommendations saved me so much time! I'm now in a role I love.",
@@ -650,15 +654,15 @@ const OpportunePage = () => {
                   ].map((testimonial, index) => (
                     <div
                       key={index}
-                      className="flex gap-8 items-center bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition"
+                      className="flex gap-4 md:gap-8 items-center bg-white p-4 md:p-6 rounded-xl shadow-md hover:shadow-lg transition"
                     >
                       <img
                         src={testimonial.avatar}
                         alt={testimonial.name}
-                        className="w-16 h-16 rounded-full"
+                        className="w-12 md:w-16 h-12 md:h-16 rounded-full"
                       />
                       <div>
-                        <h3 className="text-xl font-bold text-indigo-600">
+                        <h3 className="text-lg md:text-xl font-bold text-indigo-600">
                           {testimonial.name}
                         </h3>
                         <p className="text-gray-600 mt-2">{testimonial.text}</p>
@@ -669,11 +673,11 @@ const OpportunePage = () => {
               </div>
 
               {/* #1 Choice Section */}
-              <div className="p-12 bg-gradient-to-r from-indigo-200 via-white to-gray-100">
-                <h2 className="text-4xl font-bold text-center mb-8">
+              <div className="p-6 md:p-12 bg-gradient-to-r from-indigo-200 via-white to-gray-100">
+                <h2 className="text-2xl md:text-4xl font-bold text-center mb-4 md:mb-8">
                   The #1 Choice of Students & Working Professionals
                 </h2>
-                <p className="text-xl text-center text-gray-600">
+                <p className="text-md md:text-xl text-center text-gray-600">
                   Find the perfect job with our advanced tools and resources.
                   Thousands of students and working professionals trust us for
                   their career advancement.
