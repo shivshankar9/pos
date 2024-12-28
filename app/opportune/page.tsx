@@ -450,7 +450,7 @@ const OpportunePage = () => {
             )}
           </>
         ) : (
-          <div className="flex flex-col items-center justify-center bg-gradient-to-br from-gray-100 via-white to-gray-100 min-h-screen p-4 md:p-8">
+          <div className="flex flex-col items-center justify-center bg-gradient-to-br from-gray-100 via-white to-gray-100 min-h-screen p-4 md:p-9">
             <div className="w-full max-w-6xl bg-white rounded-3xl shadow-2xl overflow-hidden">
               {/* Hero Section */}
               <div className="relative bg-gradient-to-r from-blue-600 to-indigo-600 text-white p-8 md:p-12 text-center">
@@ -481,8 +481,8 @@ const OpportunePage = () => {
               </div>
 
               {/* Features Section */}
-              <div className="p-6 md:p-12 bg-gradient-to-r from-gray-50 to-white">
-                <h2 className="text-2xl md:text-4xl font-bold text-center mb-6 md:mb-10">
+              <div className="p-6 md:p-12 bg-white">
+                <h2 className="text-2xl md:text-4xl font-bold text-center mb-6 md:mb-10 text-gray-900">
                   Empowering Features
                 </h2>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
@@ -515,7 +515,7 @@ const OpportunePage = () => {
                         alt={feature.title}
                         className="w-12 md:w-16 h-12 md:h-16 mx-auto mb-4 md:mb-6"
                       />
-                      <h3 className="text-lg md:text-xl font-semibold group-hover:text-indigo-600">
+                      <h3 className="text-lg md:text-xl font-semibold group-hover:text-indigo-600 text-gray-900">
                         {feature.title}
                       </h3>
                       <p className="text-gray-600 mt-2 md:mt-4">
@@ -527,14 +527,14 @@ const OpportunePage = () => {
               </div>
 
               {/* Subscription Callouts */}
-              <div className="bg-gradient-to-r from-indigo-100 via-white to-gray-100 p-6 md:p-12">
-                <h2 className="text-2xl md:text-4xl font-bold text-center mb-6 md:mb-12">
+              <div className="bg-white p-6 md:p-12">
+                <h2 className="text-2xl md:text-4xl font-bold text-center mb-6 md:mb-12 text-gray-900">
                   Choose Your Plan
                 </h2>
                 <div className="grid grid-cols-1 md:grid-cols-1 gap-6">
                   <div className="p-6 md:p-8 rounded-2xl shadow-lg hover:shadow-xl transition bg-gradient-to-r from-purple-200 via-pink-200 to-red-200">
                     {/* Title Section */}
-                    <h3 className="text-xl md:text-2xl font-bold mb-4 text-center">
+                    <h3 className="text-xl md:text-2xl font-bold mb-4 text-center text-gray-900">
                       Exclusive Offer
                     </h3>
 
@@ -548,7 +548,7 @@ const OpportunePage = () => {
                     {/* Price Section */}
                     <div className="text-center text-red-600 text-lg font-semibold mb-4">
                       <span className="line-through text-gray-500">{`₹1999`}</span>
-                      <span className="ml-2 text-2xl md:text-3xl font-bold">{`₹999`}</span>
+                      <span className="ml-2 text-2xl md:text-3xl font-bold text-gray-900">{`₹999`}</span>
                     </div>
 
                     {/* Features List */}
@@ -580,8 +580,8 @@ const OpportunePage = () => {
               </div>
 
               {/* Why Trust Us Section */}
-              <div className="p-6 md:p-12 bg-gradient-to-r from-gray-50 via-white to-gray-100">
-                <h2 className="text-2xl md:text-4xl font-bold text-center mb-6 md:mb-12">
+              <div className="p-6 md:p-12 bg-white">
+                <h2 className="text-2xl md:text-4xl font-bold text-center mb-6 md:mb-12 text-gray-900">
                   Why Trust Us?
                 </h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-12">
@@ -609,7 +609,7 @@ const OpportunePage = () => {
                         className="w-16 md:w-24 h-16 md:h-24"
                       />
                       <div className="text-center md:text-left">
-                        <h3 className="text-lg md:text-2xl font-bold">
+                        <h3 className="text-lg md:text-2xl font-bold text-gray-900">
                           {item.title}
                         </h3>
                         <p className="text-gray-600 mt-2">{item.description}</p>
@@ -620,8 +620,8 @@ const OpportunePage = () => {
               </div>
 
               {/* Testimonials Section */}
-              <div className="bg-gradient-to-r from-gray-50 via-white to-gray-100 p-6 md:p-12">
-                <h2 className="text-2xl md:text-4xl font-bold text-center mb-6 md:mb-12">
+              <div className="bg-white p-6 md:p-12">
+                <h2 className="text-2xl md:text-4xl font-bold text-center mb-6 md:mb-12 text-gray-900">
                   What Our Users Say
                 </h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-12">
@@ -654,7 +654,7 @@ const OpportunePage = () => {
                   ].map((testimonial, index) => (
                     <div
                       key={index}
-                      className="flex gap-4 md:gap-8 items-center bg-white p-4 md:p-6 rounded-xl shadow-md hover:shadow-lg transition"
+                      className="flex gap-4 md:gap-8 items-center bg-gray-50 p-4 md:p-6 rounded-xl shadow-md hover:shadow-lg transition"
                     >
                       <img
                         src={testimonial.avatar}
@@ -673,8 +673,8 @@ const OpportunePage = () => {
               </div>
 
               {/* #1 Choice Section */}
-              <div className="p-6 md:p-12 bg-gradient-to-r from-indigo-200 via-white to-gray-100">
-                <h2 className="text-2xl md:text-4xl font-bold text-center mb-4 md:mb-8">
+              <div className="p-6 md:p-12 bg-white">
+                <h2 className="text-2xl md:text-4xl font-bold text-center mb-4 md:mb-8 text-gray-900">
                   The #1 Choice of Students & Working Professionals
                 </h2>
                 <p className="text-md md:text-xl text-center text-gray-600">
