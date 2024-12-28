@@ -450,7 +450,7 @@ const OpportunePage = () => {
             )}
           </>
         ) : (
-          <div className="flex flex-col items-center justify-center bg-gradient-to-br from-gray-100 via-white to-gray-100 min-h-screen p-4 md:p-9">
+          <div className="flex flex-col items-center justify-center bg-gradient-to-br from-gray-100 via-white to-gray-100 min-h-screen p-4 md:p-8">
             <div className="w-full max-w-6xl bg-white rounded-3xl shadow-2xl overflow-hidden">
               {/* Hero Section */}
               <div className="relative bg-gradient-to-r from-blue-600 to-indigo-600 text-white p-8 md:p-12 text-center">
@@ -480,8 +480,54 @@ const OpportunePage = () => {
                 />
               </div>
 
+              {/* How It Works Section */}
+              <div className="p-6 md:p-12 bg-gradient-to-r from-gray-50 to-white">
+                <h2 className="text-2xl md:text-4xl font-bold text-center mb-6 md:mb-10 text-gray-900">
+                  How It Works
+                </h2>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
+                  {[
+                    {
+                      title: "Sign Up",
+                      description:
+                        "Create your account and fill in your profile details.",
+                      icon: "/images/signup.svg",
+                    },
+                    {
+                      title: "Explore",
+                      description:
+                        "Browse through a variety of job opportunities and resources.",
+                      icon: "/images/explore.svg",
+                    },
+                    {
+                      title: "Apply",
+                      description:
+                        "Apply to positions that best match your skills and interests.",
+                      icon: "/images/apply.svg",
+                    },
+                  ].map((step, index) => (
+                    <div
+                      key={index}
+                      className="p-6 md:p-8 bg-gray-50 rounded-lg shadow-md hover:shadow-lg transition group"
+                    >
+                      <img
+                        src={step.icon}
+                        alt={step.title}
+                        className="w-12 md:w-16 h-12 md:h-16 mx-auto mb-4 md:mb-6"
+                      />
+                      <h3 className="text-lg md:text-xl font-semibold group-hover:text-indigo-600 text-gray-900">
+                        {step.title}
+                      </h3>
+                      <p className="text-gray-600 mt-2 md:mt-4">
+                        {step.description}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
               {/* Features Section */}
-              <div className="p-6 md:p-12 bg-white">
+              <div className="p-6 md:p-12 bg-gradient-to-r from-gray-50 to-white">
                 <h2 className="text-2xl md:text-4xl font-bold text-center mb-6 md:mb-10 text-gray-900">
                   Empowering Features
                 </h2>
@@ -527,7 +573,7 @@ const OpportunePage = () => {
               </div>
 
               {/* Subscription Callouts */}
-              <div className="bg-white p-6 md:p-12">
+              <div className="bg-gradient-to-r from-indigo-100 via-white to-gray-100 p-6 md:p-12">
                 <h2 className="text-2xl md:text-4xl font-bold text-center mb-6 md:mb-12 text-gray-900">
                   Choose Your Plan
                 </h2>
@@ -580,7 +626,7 @@ const OpportunePage = () => {
               </div>
 
               {/* Why Trust Us Section */}
-              <div className="p-6 md:p-12 bg-white">
+              <div className="p-6 md:p-12 bg-gradient-to-r from-gray-50 via-white to-gray-100">
                 <h2 className="text-2xl md:text-4xl font-bold text-center mb-6 md:mb-12 text-gray-900">
                   Why Trust Us?
                 </h2>
@@ -620,7 +666,7 @@ const OpportunePage = () => {
               </div>
 
               {/* Testimonials Section */}
-              <div className="bg-white p-6 md:p-12">
+              <div className="bg-gradient-to-r from-gray-50 via-white to-gray-100 p-6 md:p-12">
                 <h2 className="text-2xl md:text-4xl font-bold text-center mb-6 md:mb-12 text-gray-900">
                   What Our Users Say
                 </h2>
@@ -634,7 +680,7 @@ const OpportunePage = () => {
                     {
                       name: "Priya Jain",
                       text: "I’ve tried other platforms, but nothing matches the authenticity and support I’ve received here.",
-                      avatar: "/priya.jpeg",
+                      avatar: "priya.jpeg",
                     },
                     {
                       name: "Anil Kumar",
@@ -654,7 +700,7 @@ const OpportunePage = () => {
                   ].map((testimonial, index) => (
                     <div
                       key={index}
-                      className="flex gap-4 md:gap-8 items-center bg-gray-50 p-4 md:p-6 rounded-xl shadow-md hover:shadow-lg transition"
+                      className="flex gap-4 md:gap-8 items-center bg-white p-4 md:p-6 rounded-xl shadow-md hover:shadow-lg transition"
                     >
                       <img
                         src={testimonial.avatar}
@@ -673,7 +719,7 @@ const OpportunePage = () => {
               </div>
 
               {/* #1 Choice Section */}
-              <div className="p-6 md:p-12 bg-white">
+              <div className="p-6 md:p-12 bg-gradient-to-r from-indigo-200 via-white to-gray-100">
                 <h2 className="text-2xl md:text-4xl font-bold text-center mb-4 md:mb-8 text-gray-900">
                   The #1 Choice of Students & Working Professionals
                 </h2>
