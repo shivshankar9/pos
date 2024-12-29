@@ -695,7 +695,7 @@ const OpportunePage = () => {
                     {
                       name: "Anil Kumar",
                       text: "The personalized job recommendations saved me so much time! I'm now in a role I love.",
-                      avatar: "/images/avatar-anil.svg",
+                      avatar: "/IMG-20241229-WA0011.jpg",
                     },
                     {
                       name: "Neha Gupta",
