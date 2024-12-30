@@ -23,6 +23,12 @@ interface Geolocation {
   lat: number;
   lon: number;
 }
+// Define the type for geolocation state
+interface Geolocation {
+  lat: number;
+  lon: number;
+}
+
 // Define the type for a job listing
 interface JobListing {
   company: string;
@@ -39,6 +45,7 @@ interface Event {
   description: string;
   link: string;
 }
+
 // Dummy email subscription data
 const subscribedEmails = ["shivshankarkumar281@gmail.com"];
 const nonSubscribedEmails = ["shivshankar4287@gmail.com"];
@@ -58,30 +65,13 @@ const bannerImages = [
   { src: "/banner3.png", alt: "Ad 3: Find Your Dream Job Now", link: "#" },
 ];
 
-const events = [
-  {
-    name: "Tech Job Fair 2024",
-    date: "2024-12-15",
-    location: "San Francisco, CA",
-    description:
-      "A premier event connecting tech talent with industry leaders.",
-    link: "#",
-  },
-  {
-    name: "Walk-In Interviews at Infosys",
-    date: "2024-12-20",
-    location: "Bangalore, India",
-    description: "Open walk-in interviews for software roles.",
-    link: "https://www.infosys.com/careers",
-  },
-];
-
 const OpportunePage = () => {
   const { isSignedIn, user } = useUser();
   const router = useRouter();
   const [darkMode, setDarkMode] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
-  const [filteredJobs, setFilteredJobs] = useState([]);
+  const [filteredJobs, setFilteredJobs] = useState<JobListing[]>([]);
+  const [events, setEvents] = useState<Event[]>([]);
   const [geolocation, setGeolocation] = useState<Geolocation | null>(null);
   const [showRequestModal, setShowRequestModal] = useState(false);
   const [jobRequest, setJobRequest] = useState({
@@ -102,18 +92,31 @@ const OpportunePage = () => {
 
   useEffect(() => {
     const fetchJobs = async () => {
-      const { data, error } = await supabase
+      const { data: jobData, error: jobError } = await supabase
         .from('job_listings')
         .select('*');
 
-      if (error) {
-        console.error('Error fetching jobs:', error);
+      if (jobError) {
+        console.error('Error fetching job listings:', jobError);
       } else {
-        setFilteredJobs(data);
+        setFilteredJobs(jobData);
+      }
+    };
+
+    const fetchEvents = async () => {
+      const { data: eventData, error: eventError } = await supabase
+        .from('events')
+        .select('*');
+
+      if (eventError) {
+        console.error('Error fetching events:', eventError);
+      } else {
+        setEvents(eventData);
       }
     };
 
     fetchJobs();
+    fetchEvents();
   }, []);
 
   useEffect(() => {
