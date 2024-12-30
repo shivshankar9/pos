@@ -23,7 +23,22 @@ interface Geolocation {
   lat: number;
   lon: number;
 }
+// Define the type for a job listing
+interface JobListing {
+  company: string;
+  role: string;
+  location: string;
+  link: string;
+}
 
+// Define the type for an event
+interface Event {
+  name: string;
+  date: string;
+  location: string;
+  description: string;
+  link: string;
+}
 // Dummy email subscription data
 const subscribedEmails = ["shivshankarkumar281@gmail.com"];
 const nonSubscribedEmails = ["shivshankar4287@gmail.com"];
