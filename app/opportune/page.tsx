@@ -16,6 +16,8 @@ import { GiNetworkBars } from "react-icons/gi";
 import { GiLightBulb } from "react-icons/gi";
 import { HiOutlineBadgeCheck } from "react-icons/hi";
 import { FaHandshake, FaRegThumbsUp } from "react-icons/fa";
+import { supabase } from "../utils/supabaseClient";
+
 // Define the type for geolocation state
 interface Geolocation {
   lat: number;
@@ -30,33 +32,6 @@ const nonSubscribedEmails = ["shivshankar4287@gmail.com"];
 const checkSubscription = (email: string) => {
   return subscribedEmails.includes(email);
 };
-
-const jobListings = [
-  {
-    company: "Google",
-    role: "Software Engineer",
-    location: "Mountain View, CA",
-    link: "https://careers.google.com",
-  },
-  {
-    company: "Amazon",
-    role: "Front-End Developer",
-    location: "Seattle, WA",
-    link: "https://www.amazon.jobs",
-  },
-  {
-    company: "Microsoft",
-    role: "Data Scientist",
-    location: "Redmond, WA",
-    link: "https://careers.microsoft.com",
-  },
-  {
-    company: "Tesla",
-    role: "Electrical Engineer",
-    location: "Palo Alto, CA",
-    link: "https://www.tesla.com/careers",
-  },
-];
 
 const bannerImages = [
   { src: "/banner1.png", alt: "Ad 1: Join Tech Job Fair", link: "#" },
@@ -91,7 +66,7 @@ const OpportunePage = () => {
   const router = useRouter();
   const [darkMode, setDarkMode] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
-  const [filteredJobs, setFilteredJobs] = useState(jobListings);
+  const [filteredJobs, setFilteredJobs] = useState([]);
   const [geolocation, setGeolocation] = useState<Geolocation | null>(null);
   const [showRequestModal, setShowRequestModal] = useState(false);
   const [jobRequest, setJobRequest] = useState({
@@ -111,8 +86,24 @@ const OpportunePage = () => {
   }, []);
 
   useEffect(() => {
-    setFilteredJobs(
-      jobListings.filter((job) =>
+    const fetchJobs = async () => {
+      const { data, error } = await supabase
+        .from('job_listings')
+        .select('*');
+
+      if (error) {
+        console.error('Error fetching jobs:', error);
+      } else {
+        setFilteredJobs(data);
+      }
+    };
+
+    fetchJobs();
+  }, []);
+
+  useEffect(() => {
+    setFilteredJobs((prevJobs) =>
+      prevJobs.filter((job) =>
         `${job.company} ${job.role} ${job.location}`
           .toLowerCase()
           .includes(searchTerm.toLowerCase())
@@ -122,7 +113,7 @@ const OpportunePage = () => {
 
   useEffect(() => {
     const checkSignInStatusAndSubscription = async () => {
-      await new Promise((resolve) => setTimeout(resolve, 5000)); // Wait for 3 seconds
+      await new Promise((resolve) => setTimeout(resolve, 5000)); // Wait for 5 seconds
       if (isSignedIn && user && user.primaryEmailAddress?.emailAddress) {
         const email = user.primaryEmailAddress.emailAddress;
         const subscribed = checkSubscription(email);
