@@ -8,21 +8,18 @@ import { useUser, SignIn, SignOutButton, ClerkProvider } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import Head from "next/head";
-import { motion } from "framer-motion"; // Make sure this import is here
-import { FaUser } from "react-icons/fa";
-import { FaSearch } from "react-icons/fa";
-import { FaRegPaperPlane } from "react-icons/fa";
-import { GiNetworkBars } from "react-icons/gi";
-import { GiLightBulb } from "react-icons/gi";
+import { motion } from "framer-motion";
+import {
+  FaUser,
+  FaSearch,
+  FaRegPaperPlane,
+  FaHandshake,
+  FaRegThumbsUp,
+} from "react-icons/fa";
+import { GiNetworkBars, GiLightBulb } from "react-icons/gi";
 import { HiOutlineBadgeCheck } from "react-icons/hi";
-import { FaHandshake, FaRegThumbsUp } from "react-icons/fa";
 import { supabase } from "../utils/supabaseClient";
 
-// Define the type for geolocation state
-interface Geolocation {
-  lat: number;
-  lon: number;
-}
 // Define the type for geolocation state
 interface Geolocation {
   lat: number;
@@ -45,15 +42,6 @@ interface Event {
   description: string;
   link: string;
 }
-
-// Dummy email subscription data
-const subscribedEmails = ["shivshankarkumar281@gmail.com"];
-const nonSubscribedEmails = ["shivshankar4287@gmail.com"];
-
-// Function to check subscription
-const checkSubscription = (email: string) => {
-  return subscribedEmails.includes(email);
-};
 
 const bannerImages = [
   { src: "/banner1.png", alt: "Ad 1: Join Tech Job Fair", link: "#" },
@@ -93,11 +81,11 @@ const OpportunePage = () => {
   useEffect(() => {
     const fetchJobs = async () => {
       const { data: jobData, error: jobError } = await supabase
-        .from('job_listings')
-        .select('*');
+        .from("job_listings")
+        .select("*");
 
       if (jobError) {
-        console.error('Error fetching job listings:', jobError);
+        console.error("Error fetching job listings:", jobError);
       } else {
         setFilteredJobs(jobData);
       }
@@ -105,11 +93,11 @@ const OpportunePage = () => {
 
     const fetchEvents = async () => {
       const { data: eventData, error: eventError } = await supabase
-        .from('events')
-        .select('*');
+        .from("events")
+        .select("*");
 
       if (eventError) {
-        console.error('Error fetching events:', eventError);
+        console.error("Error fetching events:", eventError);
       } else {
         setEvents(eventData);
       }
@@ -131,12 +119,40 @@ const OpportunePage = () => {
 
   useEffect(() => {
     const checkSignInStatusAndSubscription = async () => {
-      await new Promise((resolve) => setTimeout(resolve, 5000)); // Wait for 5 seconds
+      await new Promise((resolve) => setTimeout(resolve, 1000)); // Wait for 5 seconds
+
       if (isSignedIn && user && user.primaryEmailAddress?.emailAddress) {
         const email = user.primaryEmailAddress.emailAddress;
-        const subscribed = checkSubscription(email);
-        setIsSubscribed(subscribed);
-        setShowSignInModal(false);
+
+        // Fetch user from Supabase
+        const { data: userData, error: userError } = await supabase
+          .from("users")
+          .select("id")
+          .eq("email", email)
+          .single();
+
+        if (userError) {
+          console.error("Error fetching user:", userError);
+          return;
+        }
+
+        // Fetch subscription status
+        const { data: subscriptionData, error: subscriptionError } =
+          await supabase
+            .from("subscriptions")
+            .select("is_subscribed")
+            .eq("user_id", userData.id)
+            .single();
+
+        if (subscriptionError) {
+          console.error(
+            "Error fetching subscription status:",
+            subscriptionError
+          );
+        } else {
+          setIsSubscribed(subscriptionData.is_subscribed);
+          setShowSignInModal(false);
+        }
       } else if (!isSignedIn) {
         setShowSignInModal(true); // Show sign-in modal if not signed in
       }
@@ -174,6 +190,40 @@ const OpportunePage = () => {
     if (section) {
       section.scrollIntoView({ behavior: "smooth" });
     }
+  };
+
+  const handleSubscribe = async () => {
+    const response = await fetch("/api/create-order", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ amount: 999 }),
+    });
+
+    const order = await response.json();
+
+    const options = {
+      key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID,
+      amount: order.amount,
+      currency: "INR",
+      name: "Opportune",
+      description: "Subscription",
+      order_id: order.id,
+      handler: function (response) {
+        alert(`Payment successful: ${response.razorpay_payment_id}`);
+      },
+      prefill: {
+        name: user?.fullName || "",
+        email: user?.primaryEmailAddress?.emailAddress || "",
+      },
+      theme: {
+        color: "#3399cc",
+      },
+    };
+
+    const rzp = new window.Razorpay(options);
+    rzp.open();
   };
 
   return (
