@@ -201,6 +201,7 @@ const OpportunePage = () => {
     setShowRequestModal(false);
     setJobRequest({ title: "", description: "", location: "" });
   };
+  
 
   const scrollToSection = (id: string) => {
     const section = document.getElementById(id);
