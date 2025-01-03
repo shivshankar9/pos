@@ -845,7 +845,7 @@ const OpportunePage = () => {
                     {
                       name: "Priya Jain",
                       text: "I’ve tried other platforms, but nothing matches the authenticity and support I’ve received here.",
-                      avatar: "priya1.jpeg",
+                      avatar: "model3.png",
                     },
                     {
                       name: "Anil Kumar",
@@ -855,12 +855,12 @@ const OpportunePage = () => {
                     {
                       name: "Neha Gupta",
                       text: "The platform's resume analysis tool helped me refine my CV, leading to more interview opportunities.",
-                      avatar: "/images/avatar-neha.svg",
+                      avatar: "/model2.png",
                     },
                     {
                       name: "Suresh Reddy",
                       text: "I was skeptical at first, but the platform truly offers verified job opportunities. It's been a game-changer!",
-                      avatar: "/images/avatar-suresh.svg",
+                      avatar: "/model1.png",
                     },
                   ].map((testimonial, index) => (
                     <div
