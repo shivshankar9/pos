@@ -264,7 +264,7 @@ const OpportunePage = () => {
   const handleSubscribe = async () => {
     if (typeof window !== "undefined" && (window as any).Razorpay) {
       const options = {
-        key: "rzp_live_hfbBkmLnUZrWdp",
+        key: "rzp_test_6GkVsJKB0s9HHx",
         amount: discountedPrice * 100,
         currency: "INR",
         name: "Finverge.Tech",
