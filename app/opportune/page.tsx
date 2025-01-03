@@ -155,24 +155,67 @@ const OpportunePage = () => {
   }, [isSignedIn, user, router]);
 
   const checkSubscription = async (email: string): Promise<boolean> => {
-    const { data, error } = await supabase
-      .from("users")
-      .select("is_subscribed")
-      .eq("email", email)
-      .single();
-    if (error) {
+    try {
+      // Fetch user ID based on email
+      const { data: user, error: userError } = await supabase
+        .from("users")
+        .select("id")
+        .eq("email", email)
+        .single();
+
+      if (userError) {
+        console.error("Error fetching user:", userError);
+        return false;
+      }
+
+      // Fetch subscription status based on user ID
+      const { data: subscription, error: subscriptionError } = await supabase
+        .from("subscriptions")
+        .select("is_subscribed")
+        .eq("user_id", user.id)
+        .single();
+
+      if (subscriptionError) {
+        console.error("Error fetching subscription status:", subscriptionError);
+        return false;
+      }
+
+      return subscription.is_subscribed;
+    } catch (error) {
       console.error("Error checking subscription status:", error);
       return false;
     }
-    return data.is_subscribed;
   };
 
   const updateSubscriptionStatus = async (email: string) => {
-    const { error } = await supabase
-      .from("users")
-      .update({ is_subscribed: true })
-      .eq("email", email);
-    if (error) {
+    try {
+      // Fetch user ID based on email
+      const { data: user, error: userError } = await supabase
+        .from("users")
+        .select("id")
+        .eq("email", email)
+        .single();
+
+      if (userError) {
+        console.error("Error fetching user:", userError);
+        return;
+      }
+
+      // Update subscription status
+      const { error: subscriptionError } = await supabase
+        .from("subscriptions")
+        .upsert({
+          user_id: user.id,
+          is_subscribed: true,
+          created_at: new Date().toISOString(),
+        });
+
+      if (subscriptionError) {
+        console.error("Error updating subscription status:", subscriptionError);
+      } else {
+        console.log("Subscription status updated successfully");
+      }
+    } catch (error) {
       console.error("Error updating subscription status:", error);
     }
   };
@@ -260,7 +303,6 @@ const OpportunePage = () => {
       </div>
     );
   }
-
   return (
     <ClerkProvider>
       <Head>
