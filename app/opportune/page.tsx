@@ -20,9 +20,11 @@ import { GiNetworkBars, GiLightBulb } from "react-icons/gi";
 import { HiOutlineBadgeCheck } from "react-icons/hi";
 import { supabase } from "../utils/supabaseClient";
 
+// Pricing constants
 const originalPrice = 1999;
 const discountedPrice = 999;
 
+// Interfaces for type checking
 interface Geolocation {
   lat: number;
   lon: number;
@@ -49,6 +51,7 @@ interface RazorpayResponse {
   razorpay_signature: string;
 }
 
+// Banner images for carousel
 const bannerImages = [
   { src: "/banner1.png", alt: "Ad 1: Join Tech Job Fair", link: "#" },
   {
@@ -143,7 +146,7 @@ const OpportunePage = () => {
 
       if (isSignedIn && user && user.primaryEmailAddress?.emailAddress) {
         const email = user.primaryEmailAddress.emailAddress;
-        const subscribed = await insertOrUpdateUserAndSubscription(email);
+        const subscribed = await checkUserSubscriptionStatus(email);
         setIsSubscribed(subscribed);
         setShowSignInModal(false);
       } else if (!isSignedIn) {
@@ -154,7 +157,7 @@ const OpportunePage = () => {
     checkSignInStatusAndSubscription();
   }, [isSignedIn, user, router]);
 
-  const insertOrUpdateUserAndSubscription = async (
+  const checkUserSubscriptionStatus = async (
     email: string
   ): Promise<boolean> => {
     try {
@@ -166,44 +169,34 @@ const OpportunePage = () => {
         .single();
 
       if (userError && userError.code === "PGRST116") {
-        // Insert user if not exists
-        const { data: newUser, error: insertUserError } = await supabase
-          .from("users")
-          .insert({ email, full_name: email }) // Assuming full_name is not available, using email as a placeholder
-          .select("id")
-          .single();
-
-        if (insertUserError) {
-          console.error("Error inserting user:", insertUserError);
-          return false;
-        }
-
-        existingUser = newUser;
+        return false;
       }
 
       if (existingUser) {
-        // Update or insert subscription
+        // Check subscription status
         const { data: subscription, error: subscriptionError } = await supabase
           .from("subscriptions")
-          .upsert(
-            { user_id: existingUser.id, is_subscribed: true },
-            { onConflict: ["user_id"] }
-          );
+          .select("is_subscribed")
+          .eq("user_id", existingUser.id)
+          .single();
 
         if (subscriptionError) {
-          console.error("Error updating subscription:", subscriptionError);
+          console.error(
+            "Error fetching subscription status:",
+            subscriptionError
+          );
           return false;
         } else {
-          console.log("Subscription updated successfully");
-          return true;
+          return subscription.is_subscribed;
         }
       }
     } catch (error) {
-      console.error("Error in insertOrUpdateUserAndSubscription:", error);
+      console.error("Error in checkUserSubscriptionStatus:", error);
       return false;
     }
-    return false; // Ensure a boolean value is returned even if no conditions match
+    return false;
   };
+
   const updateSubscriptionStatus = async (email: string) => {
     try {
       // Fetch user ID based on email
@@ -281,10 +274,12 @@ const OpportunePage = () => {
           setIsPaid(true);
           alert("Payment Successful: " + response.razorpay_payment_id);
           if (user && user.primaryEmailAddress?.emailAddress) {
-            await updateSubscriptionStatus(
-              user.primaryEmailAddress.emailAddress
-            );
-            setIsSubscribed(true);
+            const email = user.primaryEmailAddress.emailAddress;
+            const subscribed = await checkUserSubscriptionStatus(email);
+            if (!subscribed) {
+              await updateSubscriptionStatus(email);
+              setIsSubscribed(true);
+            }
           }
         },
         prefill: {
