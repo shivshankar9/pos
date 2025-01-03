@@ -202,8 +202,8 @@ const OpportunePage = () => {
       console.error("Error in insertOrUpdateUserAndSubscription:", error);
       return false;
     }
+    return false; // Ensure a boolean value is returned even if no conditions match
   };
-
   const updateSubscriptionStatus = async (email: string) => {
     try {
       // Fetch user ID based on email
