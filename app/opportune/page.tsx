@@ -143,7 +143,7 @@ const OpportunePage = () => {
 
       if (isSignedIn && user && user.primaryEmailAddress?.emailAddress) {
         const email = user.primaryEmailAddress.emailAddress;
-        const subscribed = await checkSubscription(email);
+        const subscribed = await insertOrUpdateUserAndSubscription(email);
         setIsSubscribed(subscribed);
         setShowSignInModal(false);
       } else if (!isSignedIn) {
@@ -154,35 +154,52 @@ const OpportunePage = () => {
     checkSignInStatusAndSubscription();
   }, [isSignedIn, user, router]);
 
-  const checkSubscription = async (email: string): Promise<boolean> => {
+  const insertOrUpdateUserAndSubscription = async (
+    email: string
+  ): Promise<boolean> => {
     try {
-      // Fetch user ID based on email
-      const { data: user, error: userError } = await supabase
+      // Check if user exists
+      let { data: existingUser, error: userError } = await supabase
         .from("users")
         .select("id")
         .eq("email", email)
         .single();
 
-      if (userError) {
-        console.error("Error fetching user:", userError);
-        return false;
+      if (userError && userError.code === "PGRST116") {
+        // Insert user if not exists
+        const { data: newUser, error: insertUserError } = await supabase
+          .from("users")
+          .insert({ email, full_name: email }) // Assuming full_name is not available, using email as a placeholder
+          .select("id")
+          .single();
+
+        if (insertUserError) {
+          console.error("Error inserting user:", insertUserError);
+          return false;
+        }
+
+        existingUser = newUser;
       }
 
-      // Fetch subscription status based on user ID
-      const { data: subscription, error: subscriptionError } = await supabase
-        .from("subscriptions")
-        .select("is_subscribed")
-        .eq("user_id", user.id)
-        .single();
+      if (existingUser) {
+        // Update or insert subscription
+        const { data: subscription, error: subscriptionError } = await supabase
+          .from("subscriptions")
+          .upsert(
+            { user_id: existingUser.id, is_subscribed: true },
+            { onConflict: ["user_id"] }
+          );
 
-      if (subscriptionError) {
-        console.error("Error fetching subscription status:", subscriptionError);
-        return false;
+        if (subscriptionError) {
+          console.error("Error updating subscription:", subscriptionError);
+          return false;
+        } else {
+          console.log("Subscription updated successfully");
+          return true;
+        }
       }
-
-      return subscription.is_subscribed;
     } catch (error) {
-      console.error("Error checking subscription status:", error);
+      console.error("Error in insertOrUpdateUserAndSubscription:", error);
       return false;
     }
   };
