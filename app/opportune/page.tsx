@@ -8,28 +8,26 @@ import { useUser, SignIn, SignOutButton, ClerkProvider } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import Head from "next/head";
-import { motion } from "framer-motion"; // Make sure this import is here
-import { FaUser } from "react-icons/fa";
-import { FaSearch } from "react-icons/fa";
-import { FaRegPaperPlane } from "react-icons/fa";
-import { GiNetworkBars } from "react-icons/gi";
-import { GiLightBulb } from "react-icons/gi";
+import { motion } from "framer-motion";
+import {
+  FaUser,
+  FaSearch,
+  FaRegPaperPlane,
+  FaHandshake,
+  FaRegThumbsUp,
+} from "react-icons/fa";
+import { GiNetworkBars, GiLightBulb } from "react-icons/gi";
 import { HiOutlineBadgeCheck } from "react-icons/hi";
-import { FaHandshake, FaRegThumbsUp } from "react-icons/fa";
 import { supabase } from "../utils/supabaseClient";
 
-// Define the type for geolocation state
-interface Geolocation {
-  lat: number;
-  lon: number;
-}
-// Define the type for geolocation state
+const originalPrice = 1999;
+const discountedPrice = 999;
+
 interface Geolocation {
   lat: number;
   lon: number;
 }
 
-// Define the type for a job listing
 interface JobListing {
   company: string;
   role: string;
@@ -37,7 +35,6 @@ interface JobListing {
   link: string;
 }
 
-// Define the type for an event
 interface Event {
   name: string;
   date: string;
@@ -46,14 +43,11 @@ interface Event {
   link: string;
 }
 
-// Dummy email subscription data
-const subscribedEmails = ["shivshankarkumar281@gmail.com"];
-const nonSubscribedEmails = ["shivshankar4287@gmail.com"];
-
-// Function to check subscription
-const checkSubscription = (email: string) => {
-  return subscribedEmails.includes(email);
-};
+interface RazorpayResponse {
+  razorpay_payment_id: string;
+  razorpay_order_id: string;
+  razorpay_signature: string;
+}
 
 const bannerImages = [
   { src: "/banner1.png", alt: "Ad 1: Join Tech Job Fair", link: "#" },
@@ -82,12 +76,26 @@ const OpportunePage = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [showSignInModal, setShowSignInModal] = useState(false);
   const [isSubscribed, setIsSubscribed] = useState(false);
+  const [isPaid, setIsPaid] = useState(false);
 
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % bannerImages.length);
     }, 5000);
     return () => clearInterval(interval);
+  }, []);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const loadRazorpay = () => {
+        const script = document.createElement("script");
+        script.src = "https://checkout.razorpay.com/v1/checkout.js";
+        script.async = true;
+        document.body.appendChild(script);
+      };
+
+      loadRazorpay();
+    }
   }, []);
 
   useEffect(() => {
@@ -131,19 +139,43 @@ const OpportunePage = () => {
 
   useEffect(() => {
     const checkSignInStatusAndSubscription = async () => {
-      await new Promise((resolve) => setTimeout(resolve, 5000)); // Wait for 5 seconds
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+
       if (isSignedIn && user && user.primaryEmailAddress?.emailAddress) {
         const email = user.primaryEmailAddress.emailAddress;
-        const subscribed = checkSubscription(email);
+        const subscribed = await checkSubscription(email);
         setIsSubscribed(subscribed);
         setShowSignInModal(false);
       } else if (!isSignedIn) {
-        setShowSignInModal(true); // Show sign-in modal if not signed in
+        setShowSignInModal(true);
       }
     };
 
     checkSignInStatusAndSubscription();
   }, [isSignedIn, user, router]);
+
+  const checkSubscription = async (email: string): Promise<boolean> => {
+    const { data, error } = await supabase
+      .from("users")
+      .select("is_subscribed")
+      .eq("email", email)
+      .single();
+    if (error) {
+      console.error("Error checking subscription status:", error);
+      return false;
+    }
+    return data.is_subscribed;
+  };
+
+  const updateSubscriptionStatus = async (email: string) => {
+    const { error } = await supabase
+      .from("users")
+      .update({ is_subscribed: true })
+      .eq("email", email);
+    if (error) {
+      console.error("Error updating subscription status:", error);
+    }
+  };
 
   const toggleDarkMode = () => setDarkMode(!darkMode);
 
@@ -175,6 +207,59 @@ const OpportunePage = () => {
       section.scrollIntoView({ behavior: "smooth" });
     }
   };
+
+  const handleSubscribe = async () => {
+    if (typeof window !== "undefined" && (window as any).Razorpay) {
+      const options = {
+        key: "rzp_test_6GkVsJKB0s9HHx",
+        amount: discountedPrice * 100,
+        currency: "INR",
+        name: "Finverge.Tech",
+        description: "Subscription Payment",
+        image: "/finvergelogo.png",
+        handler: async function (response: any) {
+          setIsPaid(true);
+          alert("Payment Successful: " + response.razorpay_payment_id);
+          if (user && user.primaryEmailAddress?.emailAddress) {
+            await updateSubscriptionStatus(
+              user.primaryEmailAddress.emailAddress
+            );
+            setIsSubscribed(true);
+          }
+        },
+        prefill: {
+          name: user?.fullName || "Customer Name",
+          email:
+            user?.primaryEmailAddress?.emailAddress || "customer@example.com",
+          contact: "1234567890",
+        },
+        notes: {
+          address: "Customer Address",
+        },
+        theme: {
+          color: "#4CAF50",
+        },
+      };
+
+      const rzp = new (window as any).Razorpay(options);
+      rzp.open();
+    } else {
+      alert("Payment gateway is not loaded. Please try again later.");
+    }
+  };
+
+  if (isPaid) {
+    return (
+      <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-br from-green-400 to-blue-500 text-white">
+        <h1 className="text-4xl font-extrabold mb-4">Congratulations! 🎉</h1>
+        <p className="text-lg mb-6">
+          Thank you for subscribing to Finverge.Tech. You’ll receive an email
+          shortly with your login credentials.
+        </p>
+        <img src="/1success.svg" alt="Success" className="w-48 h-48 mb-8" />
+      </div>
+    );
+  }
 
   return (
     <ClerkProvider>
@@ -480,6 +565,7 @@ const OpportunePage = () => {
                   whileHover={{ scale: 1.1 }}
                   whileTap={{ scale: 0.95 }}
                   className="mt-4 md:mt-6 px-6 md:px-10 py-2 md:py-4 bg-yellow-400 text-blue-900 font-semibold text-md md:text-lg rounded-full shadow-lg hover:shadow-xl transition duration-300"
+                  onClick={handleSubscribe}
                 >
                   Subscribe Now
                 </motion.button>
@@ -637,6 +723,7 @@ const OpportunePage = () => {
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
                       className="mt-6 md:mt-8 w-full px-4 md:px-6 py-2 md:py-3 bg-indigo-600 text-white font-semibold rounded-lg hover:bg-indigo-700 transition"
+                      onClick={handleSubscribe}
                     >
                       Subscribe Now
                     </motion.button>
