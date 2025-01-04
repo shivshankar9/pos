@@ -168,33 +168,43 @@ const OpportunePage = () => {
         .eq("email", email)
         .single();
 
-      if (userError && userError.code === "PGRST116") {
+      if (userError && userError.code !== 'PGRST116') {
+        console.error("Error fetching user from Supabase:", userError);
         return false;
       }
 
-      if (existingUser) {
-        // Check subscription status
-        const { data: subscription, error: subscriptionError } = await supabase
-          .from("subscriptions")
-          .select("is_subscribed")
-          .eq("user_id", existingUser.id)
-          .single();
+      if (!existingUser) {
+        // Create user in Supabase
+        const { error: insertError } = await supabase
+          .from("users")
+          .insert([{ email, full_name: email }]);
 
-        if (subscriptionError) {
-          console.error(
-            "Error fetching subscription status:",
-            subscriptionError
-          );
+        if (insertError) {
+          console.error("Error creating user in Supabase:", insertError);
           return false;
-        } else {
-          return subscription.is_subscribed;
         }
+      }
+
+      // Check subscription status
+      const { data: subscription, error: subscriptionError } = await supabase
+        .from("subscriptions")
+        .select("is_subscribed")
+        .eq("user_id", existingUser?.id)
+        .single();
+
+      if (subscriptionError) {
+        console.error(
+          "Error fetching subscription status:",
+          subscriptionError
+        );
+        return false;
+      } else {
+        return subscription.is_subscribed;
       }
     } catch (error) {
       console.error("Error in checkUserSubscriptionStatus:", error);
       return false;
     }
-    return false;
   };
 
   const updateSubscriptionStatus = async (email: string) => {
