@@ -168,7 +168,7 @@ const OpportunePage = () => {
         .eq("email", email)
         .single();
 
-      if (userError && userError.code !== 'PGRST116') {
+      if (userError && userError.code !== "PGRST116") {
         console.error("Error fetching user from Supabase:", userError);
         return false;
       }
@@ -193,10 +193,7 @@ const OpportunePage = () => {
         .single();
 
       if (subscriptionError) {
-        console.error(
-          "Error fetching subscription status:",
-          subscriptionError
-        );
+        console.error("Error fetching subscription status:", subscriptionError);
         return false;
       } else {
         return subscription.is_subscribed;
@@ -274,7 +271,7 @@ const OpportunePage = () => {
   const handleSubscribe = async () => {
     if (typeof window !== "undefined" && (window as any).Razorpay) {
       const options = {
-        key: "rzp_test_6GkVsJKB0s9HHx",
+        key: "rzp_live_hfbBkmLnUZrWdp",
         amount: discountedPrice * 100,
         currency: "INR",
         name: "Finverge.Tech",
