@@ -310,6 +310,10 @@ const OpportunePage = () => {
     }
   };
 
+  const handleBuildResumeClick = () => {
+    router.push("/build-resume");
+  };
+
   if (isPaid) {
     return (
       <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-br from-green-400 to-blue-500 text-white">
@@ -539,7 +543,7 @@ const OpportunePage = () => {
               </p>
               <button
                 className="mt-4 py-3 px-6 bg-green-500 text-white rounded-lg shadow-lg hover:bg-green-600 transform hover:scale-110"
-                onClick={() => alert("AI Resume Builder Coming Soon!")}
+                onClick={handleBuildResumeClick}
               >
                 Build Resume
               </button>
