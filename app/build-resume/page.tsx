@@ -18,7 +18,21 @@ const predefinedTemplates = [
   Work Experience: {{jobDescriptions}}`,
 ];
 
-const generateResume = (template, userDetails, jobs) => {
+interface UserDetails {
+  fullName: string;
+  email: string;
+  about: string;
+  skills: string;
+  jobDescriptions: string;
+}
+
+interface Job {
+  role: string;
+  company: string;
+  location: string;
+}
+
+const generateResume = (template: string, userDetails: UserDetails, jobs: Job[]): string => {
   let resume = template;
   resume = resume.replace("{{name}}", userDetails.fullName || "N/A");
   resume = resume.replace("{{email}}", userDetails.email || "N/A");
@@ -41,14 +55,14 @@ const generateResume = (template, userDetails, jobs) => {
 };
 
 const BuildResumePage = () => {
-  const [userDetails, setUserDetails] = useState({
+  const [userDetails, setUserDetails] = useState<UserDetails>({
     fullName: "",
     email: "",
     about: "",
     skills: "",
     jobDescriptions: "",
   });
-  const [resume, setResume] = useState("");
+  const [resume, setResume] = useState<string>("");
 
   const handleGenerateResume = () => {
     const template = predefinedTemplates[0]; // Select a template
