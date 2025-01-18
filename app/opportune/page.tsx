@@ -142,7 +142,7 @@ const OpportunePage = () => {
 
   useEffect(() => {
     const checkSignInStatusAndSubscription = async () => {
-      await new Promise((resolve) => setTimeout(resolve, 1000));
+      await new Promise((resolve) => setTimeout(resolve, 3000));
 
       if (isSignedIn && user && user.primaryEmailAddress?.emailAddress) {
         const email = user.primaryEmailAddress.emailAddress;
@@ -271,7 +271,7 @@ const OpportunePage = () => {
   const handleSubscribe = async () => {
     if (typeof window !== "undefined" && (window as any).Razorpay) {
       const options = {
-        key: "rzp_live_hfbBkmLnUZrWdp",
+        key: "rzp_test_6GkVsJKB0s9HHx",
         amount: discountedPrice * 100,
         currency: "INR",
         name: "Finverge.Tech",
@@ -311,7 +311,7 @@ const OpportunePage = () => {
   };
 
   const handleBuildResumeClick = () => {
-    router.push("/build-resume");
+    window.location.href = "https://resumeai.finverge.tech";
   };
 
   if (isPaid) {
