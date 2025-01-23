@@ -34,6 +34,8 @@ interface JobListing {
   company: string;
   role: string;
   location: string;
+  experience: string;
+  posted_at: string;
   link: string;
 }
 
@@ -271,7 +273,7 @@ const OpportunePage = () => {
   const handleSubscribe = async () => {
     if (typeof window !== "undefined" && (window as any).Razorpay) {
       const options = {
-        key: "rzp_test_6GkVsJKB0s9HHx",
+        key: "rzp_live_hfbBkmLnUZrWdp",
         amount: discountedPrice * 100,
         currency: "INR",
         name: "Finverge.Tech",
@@ -314,6 +316,33 @@ const OpportunePage = () => {
     window.location.href = "https://resumeai.finverge.tech";
   };
 
+  const formatPostedDate = (postedAt: string): string => {
+    if (!postedAt) return "Invalid date";
+
+    const now = new Date();
+    const postedDate = new Date(postedAt);
+
+    console.log("Parsing postedAt:", postedAt, "Parsed Date:", postedDate);
+
+    if (isNaN(postedDate.getTime())) {
+      console.error("Invalid date format:", postedAt);
+      return "Invalid date";
+    }
+
+    const diffInMs = now.getTime() - postedDate.getTime();
+    const diffInDays = Math.floor(diffInMs / (1000 * 60 * 60 * 24));
+
+    if (diffInDays === 0) return "Posted today";
+    if (diffInDays === 1) return "Posted 1 day ago";
+    if (diffInDays < 7) return `Posted ${diffInDays} days ago`;
+    if (diffInDays < 30)
+      return `Posted ${Math.floor(diffInDays / 7)} weeks ago`;
+    if (diffInDays < 365)
+      return `Posted ${Math.floor(diffInDays / 30)} months ago`;
+
+    return `Posted ${Math.floor(diffInDays / 365)} years ago`;
+  };
+
   if (isPaid) {
     return (
       <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-br from-green-400 to-blue-500 text-white">
@@ -326,6 +355,7 @@ const OpportunePage = () => {
       </div>
     );
   }
+
   return (
     <ClerkProvider>
       <Head>
@@ -472,27 +502,36 @@ const OpportunePage = () => {
                 </p>
               )}
             </section>
-
             <section className="mt-8" id="job-listings">
-              <h2 className="text-2xl font-semibold">Available Jobs</h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-4">
+              <h2 className="text-3xl font-semibold text-center mb-6">
+                Available Jobs
+              </h2>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {filteredJobs.map((job, index) => (
                   <div
                     key={index}
-                    className={`p-6 rounded-lg shadow ${
-                      darkMode ? "bg-gray-800" : "bg-white"
-                    } transform hover:scale-105 transition-transform duration-300`}
+                    className={`relative p-6 rounded-lg shadow-lg transition-transform duration-300 transform hover:scale-105 ${
+                      darkMode
+                        ? "bg-gray-800 text-white"
+                        : "bg-white text-gray-900"
+                    }`}
                   >
-                    <h3 className="text-xl font-bold">{job.company}</h3>
-                    <p className="text-gray-500 dark:text-gray-300">
+                    <div className="absolute top-4 right-4 bg-blue-600 text-white text-xs font-bold px-3 py-1 rounded-full shadow-md">
+                      {formatPostedDate(job.posted_at)}
+                    </div>
+                    <h3 className="text-xl font-bold mb-2">{job.company}</h3>
+                    <p className="text-gray-500 dark:text-gray-300 mb-1">
                       {job.role}
                     </p>
-                    <p className="text-sm">{job.location}</p>
+                    <p className="text-sm mb-1">{job.location}</p>
+                    <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">
+                      Experience: {job.experience}
+                    </p>
                     <a
                       href={job.link}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="mt-3 inline-block px-5 py-2 bg-gradient-to-r from-green-600 to-green-700 text-white font-semibold rounded-lg shadow-lg transform hover:scale-105 hover:from-green-500 hover:to-green-600 transition-all"
+                      className="inline-block px-5 py-2 mt-3 bg-gradient-to-r from-green-500 to-green-600 text-white font-semibold rounded-lg shadow-lg transition-all duration-300 hover:from-green-400 hover:to-green-500 transform hover:scale-105"
                     >
                       Apply Now
                     </a>
@@ -500,7 +539,6 @@ const OpportunePage = () => {
                 ))}
               </div>
             </section>
-
             <section className="mt-12" id="events">
               <h2 className="text-2xl font-semibold">Upcoming Events</h2>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-4">
