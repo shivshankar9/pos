@@ -19,6 +19,7 @@ import {
 import { GiNetworkBars, GiLightBulb } from "react-icons/gi";
 import { HiOutlineBadgeCheck } from "react-icons/hi";
 import { supabase } from "../utils/supabaseClient";
+const razorpayKey = process.env.REACT_APP_RAZORPAY_KEY;
 
 // Pricing constants
 const originalPrice = 1999;
@@ -273,7 +274,7 @@ const OpportunePage = () => {
   const handleSubscribe = async () => {
     if (typeof window !== "undefined" && (window as any).Razorpay) {
       const options = {
-        key: "rzp_live_hfbBkmLnUZrWdp",
+        key: razorpayKey,
         amount: discountedPrice * 100,
         currency: "INR",
         name: "Finverge.Tech",
@@ -348,8 +349,7 @@ const OpportunePage = () => {
       <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-br from-green-400 to-blue-500 text-white">
         <h1 className="text-4xl font-extrabold mb-4">Congratulations! 🎉</h1>
         <p className="text-lg mb-6">
-          Thank you for subscribing to Finverge.Tech. You’ll receive an email
-          shortly with your login credentials.
+          Thank you for subscribing to Finverge.Tech. Now you Login.
         </p>
         <img src="/1success.svg" alt="Success" className="w-48 h-48 mb-8" />
       </div>
@@ -503,42 +503,42 @@ const OpportunePage = () => {
               )}
             </section>
             <section className="mt-8" id="job-listings">
-              <h2 className="text-3xl font-semibold text-center mb-6">
-                Available Jobs
-              </h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {filteredJobs.map((job, index) => (
-                  <div
-                    key={index}
-                    className={`relative p-6 rounded-lg shadow-lg transition-transform duration-300 transform hover:scale-105 ${
-                      darkMode
-                        ? "bg-gray-800 text-white"
-                        : "bg-white text-gray-900"
-                    }`}
-                  >
-                    <div className="absolute top-4 right-4 bg-blue-600 text-white text-xs font-bold px-3 py-1 rounded-full shadow-md">
-                      {formatPostedDate(job.posted_at)}
-                    </div>
-                    <h3 className="text-xl font-bold mb-2">{job.company}</h3>
-                    <p className="text-gray-500 dark:text-gray-300 mb-1">
-                      {job.role}
-                    </p>
-                    <p className="text-sm mb-1">{job.location}</p>
-                    <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">
-                      Experience: {job.experience}
-                    </p>
-                    <a
-                      href={job.link}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-block px-5 py-2 mt-3 bg-gradient-to-r from-green-500 to-green-600 text-white font-semibold rounded-lg shadow-lg transition-all duration-300 hover:from-green-400 hover:to-green-500 transform hover:scale-105"
-                    >
-                      Apply Now
-                    </a>
-                  </div>
-                ))}
-              </div>
-            </section>
+  <h2 className="text-3xl font-semibold text-center mb-6">
+    Available Jobs
+  </h2>
+  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    {filteredJobs
+      .slice() // Create a copy to avoid modifying the original array
+      .sort((a, b) => new Date(b.posted_at).getTime() - new Date(a.posted_at).getTime()) // Sort by newest first
+      .map((job, index) => (
+        <div
+          key={index}
+          className={`relative p-6 rounded-lg shadow-lg transition-transform duration-300 transform hover:scale-105 ${
+            darkMode ? "bg-gray-800 text-white" : "bg-white text-gray-900"
+          }`}
+        >
+          <div className="absolute top-4 right-4 bg-blue-600 text-white text-xs font-bold px-3 py-1 rounded-full shadow-md">
+            {formatPostedDate(job.posted_at)}
+          </div>
+          <h3 className="text-xl font-bold mb-2">{job.company}</h3>
+          <p className="text-gray-500 dark:text-gray-300 mb-1">{job.role}</p>
+          <p className="text-sm mb-1">{job.location}</p>
+          <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">
+            Experience: {job.experience}
+          </p>
+          <a
+            href={job.link}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-block px-5 py-2 mt-3 bg-gradient-to-r from-green-500 to-green-600 text-white font-semibold rounded-lg shadow-lg transition-all duration-300 hover:from-green-400 hover:to-green-500 transform hover:scale-105"
+          >
+            Apply Now
+          </a>
+        </div>
+      ))}
+  </div>
+</section>
+
             <section className="mt-12" id="events">
               <h2 className="text-2xl font-semibold">Upcoming Events</h2>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-4">
