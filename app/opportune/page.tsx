@@ -19,7 +19,7 @@ import {
 import { GiNetworkBars, GiLightBulb } from "react-icons/gi";
 import { HiOutlineBadgeCheck } from "react-icons/hi";
 import { supabase } from "../utils/supabaseClient";
-const razorpayKey = process.env.NEXT_PUBLIC_RAZORPAY_KEY;
+const razorpayKey = "rzp_live_hfbBkmLnUZrWdp";
 
 // Pricing constants
 const originalPrice = 1999;
