@@ -19,7 +19,7 @@ import {
 import { GiNetworkBars, GiLightBulb } from "react-icons/gi";
 import { HiOutlineBadgeCheck } from "react-icons/hi";
 import { supabase } from "../utils/supabaseClient";
-const razorpayKey = "rzp_live_hfbBkmLnUZrWdp";
+// const razorpayKey = "rzp_live_hfbBkmLnUZrWdp";
 
 // Pricing constants
 const originalPrice = 1999;
@@ -274,7 +274,7 @@ const OpportunePage = () => {
   const handleSubscribe = async () => {
     if (typeof window !== "undefined" && (window as any).Razorpay) {
       const options = {
-        key: razorpayKey,
+        key: "rzp_live_hfbBkmLnUZrWdp",
         amount: discountedPrice * 100,
         currency: "INR",
         name: "Finverge.Tech",
