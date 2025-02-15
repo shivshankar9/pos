@@ -19,7 +19,7 @@ import {
 import { GiNetworkBars, GiLightBulb } from "react-icons/gi";
 import { HiOutlineBadgeCheck } from "react-icons/hi";
 import { supabase } from "../utils/supabaseClient";
-const razorpayKey = process.env.REACT_APP_RAZORPAY_KEY;
+const razorpayKey = process.env.NEXT_PUBLIC_RAZORPAY_KEY;
 
 // Pricing constants
 const originalPrice = 1999;
@@ -145,7 +145,7 @@ const OpportunePage = () => {
 
   useEffect(() => {
     const checkSignInStatusAndSubscription = async () => {
-      await new Promise((resolve) => setTimeout(resolve, 3000));
+      await new Promise((resolve) => setTimeout(resolve, 9000));
 
       if (isSignedIn && user && user.primaryEmailAddress?.emailAddress) {
         const email = user.primaryEmailAddress.emailAddress;
@@ -503,41 +503,49 @@ const OpportunePage = () => {
               )}
             </section>
             <section className="mt-8" id="job-listings">
-  <h2 className="text-3xl font-semibold text-center mb-6">
-    Available Jobs
-  </h2>
-  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-    {filteredJobs
-      .slice() // Create a copy to avoid modifying the original array
-      .sort((a, b) => new Date(b.posted_at).getTime() - new Date(a.posted_at).getTime()) // Sort by newest first
-      .map((job, index) => (
-        <div
-          key={index}
-          className={`relative p-6 rounded-lg shadow-lg transition-transform duration-300 transform hover:scale-105 ${
-            darkMode ? "bg-gray-800 text-white" : "bg-white text-gray-900"
-          }`}
-        >
-          <div className="absolute top-4 right-4 bg-blue-600 text-white text-xs font-bold px-3 py-1 rounded-full shadow-md">
-            {formatPostedDate(job.posted_at)}
-          </div>
-          <h3 className="text-xl font-bold mb-2">{job.company}</h3>
-          <p className="text-gray-500 dark:text-gray-300 mb-1">{job.role}</p>
-          <p className="text-sm mb-1">{job.location}</p>
-          <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">
-            Experience: {job.experience}
-          </p>
-          <a
-            href={job.link}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-block px-5 py-2 mt-3 bg-gradient-to-r from-green-500 to-green-600 text-white font-semibold rounded-lg shadow-lg transition-all duration-300 hover:from-green-400 hover:to-green-500 transform hover:scale-105"
-          >
-            Apply Now
-          </a>
-        </div>
-      ))}
-  </div>
-</section>
+              <h2 className="text-3xl font-semibold text-center mb-6">
+                Available Jobs
+              </h2>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {filteredJobs
+                  .slice() // Create a copy to avoid modifying the original array
+                  .sort(
+                    (a, b) =>
+                      new Date(b.posted_at).getTime() -
+                      new Date(a.posted_at).getTime()
+                  ) // Sort by newest first
+                  .map((job, index) => (
+                    <div
+                      key={index}
+                      className={`relative p-6 rounded-lg shadow-lg transition-transform duration-300 transform hover:scale-105 ${
+                        darkMode
+                          ? "bg-gray-800 text-white"
+                          : "bg-white text-gray-900"
+                      }`}
+                    >
+                      <div className="absolute top-4 right-4 bg-blue-600 text-white text-xs font-bold px-3 py-1 rounded-full shadow-md">
+                        {formatPostedDate(job.posted_at)}
+                      </div>
+                      <h3 className="text-xl font-bold mb-2">{job.company}</h3>
+                      <p className="text-gray-500 dark:text-gray-300 mb-1">
+                        {job.role}
+                      </p>
+                      <p className="text-sm mb-1">{job.location}</p>
+                      <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">
+                        Experience: {job.experience}
+                      </p>
+                      <a
+                        href={job.link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-block px-5 py-2 mt-3 bg-gradient-to-r from-green-500 to-green-600 text-white font-semibold rounded-lg shadow-lg transition-all duration-300 hover:from-green-400 hover:to-green-500 transform hover:scale-105"
+                      >
+                        Apply Now
+                      </a>
+                    </div>
+                  ))}
+              </div>
+            </section>
 
             <section className="mt-12" id="events">
               <h2 className="text-2xl font-semibold">Upcoming Events</h2>
