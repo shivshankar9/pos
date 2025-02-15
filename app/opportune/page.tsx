@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import { FiSearch, FiMapPin } from "react-icons/fi";
 import { HiOutlineSun, HiOutlineMoon } from "react-icons/hi";
 import { IoRocketOutline } from "react-icons/io5";
-import { useUser, SignIn, SignOutButton, ClerkProvider } from "@clerk/nextjs";
+import { useUser, SignIn, SignOutButton,SignInButton, ClerkProvider } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import Head from "next/head";
@@ -145,7 +145,7 @@ const OpportunePage = () => {
 
   useEffect(() => {
     const checkSignInStatusAndSubscription = async () => {
-      await new Promise((resolve) => setTimeout(resolve, 9000));
+      await new Promise((resolve) => setTimeout(resolve, 19000));
 
       if (isSignedIn && user && user.primaryEmailAddress?.emailAddress) {
         const email = user.primaryEmailAddress.emailAddress;
@@ -434,9 +434,13 @@ const OpportunePage = () => {
                 <HiOutlineMoon className="text-blue-500" />
               )}
             </button>
-            {isSignedIn && (
+            {isSignedIn ? (
               <div className="mt-4 md:mt-0 px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-all duration-300">
                 <SignOutButton>Sign Out</SignOutButton>
+              </div>
+            ) : (
+              <div className="mt-4 md:mt-0 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-all duration-300">
+                <SignInButton>Sign In</SignInButton>
               </div>
             )}
           </div>
